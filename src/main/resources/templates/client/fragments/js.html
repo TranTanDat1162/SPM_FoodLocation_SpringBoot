@@ -10,6 +10,8 @@
     <!-- Template Javascript -->
     <script src="/client/js/color-modes.js"></script>
     <script src="/client/js/main.js"></script>
+    <script src="/client/js/map.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJQ8CcKowMDC_SoGAwBqmN3NTTV2laprk&callback=initMap"></script>
     <th:block th:if="${userInfo}">
         <script th:inline="javascript">
             let name = [[${userInfo.fullName}]];
