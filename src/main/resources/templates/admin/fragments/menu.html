@@ -1,0 +1,192 @@
+<aside th:fragment="drawer-menu" id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo">
+        <a th:href="@{/admin}" class="app-brand-link">
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">Admin Panel</span>
+        </a>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+
+    <ul class="menu-inner py-1">
+        <!-- Dashboard -->
+        <!--/*@thymesVar id="value_menu" type=""*/-->
+        <li th:classappend="${value_menu.contains('dashboard')?'active':''}" class="menu-item">
+            <a th:href="@{/admin/dashboard}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <!-- User -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Blog</span>
+        </li>
+        <li th:classappend="${value_menu.contains('blogs')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-bookmark'></i>
+                <div>Blog</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('blog_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/blogs}" class="menu-link">
+                        <div>List blogs</div>
+                    </a>
+                </li>
+                <li th:classappend="${value_menu.contains('blog_create')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/blogs/create}" class="menu-link">
+                        <div>Create new blog</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- Ví dụ xử lý menu Restaurants -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Restaurants</span>
+        </li>
+        <li th:classappend="${value_menu.contains('restaurants')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-store' ></i>
+                <div>Restaurants</div>
+            </a>
+            <ul class="menu-sub">
+               <li th:classappend="${value_menu.contains('restaurants_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/restaurant/list}" class="menu-link">
+                        <div>List restaurants</div>
+                    </a>
+                </li><li th:classappend="${value_menu.contains('restaurants_create')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/restaurant/create}" class="menu-link">
+                        <div>Create new restaurant</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+        <!--  Rating food -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Rating Foods</span>
+        </li>
+        <li th:classappend="${value_menu.contains('ratings')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-star'></i>
+                <div>Rating Foods</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('rating_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/rating-food/list}" class="menu-link">
+                        <div>List rating</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--    rating-restaurant -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Rating Restaurants</span>
+        </li>
+        <li th:classappend="${value_menu.contains('ratings')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bxs-star'></i>
+                <div>Rating Restaurants</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('rating_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/rating-restaurant/list}"  class="menu-link">
+                        <div>List rating</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- User -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Order</span>
+        </li>
+        <li th:classappend="${value_menu.contains('orders')?'active':''}" class="menu-item">
+            <a th:href="@{/admin/orders}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-package"></i>
+                <span>List Order</span>
+            </a>
+        </li>
+        <!-- User -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Order</span>
+        </li>
+        <li th:classappend="${value_menu.contains('users')?'active':''}" class="menu-item">
+            <a th:href="@{/admin/users}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <span>User</span>
+            </a>
+        </li>
+
+        <!-- Coupon -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Coupon</span>
+        </li>
+        <li th:classappend="${value_menu.contains('coupon')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bxs-coupon' ></i>
+                <div>Coupon</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('couponList')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/coupon/list}" class="menu-link">
+                        <div>List coupon</div>
+                    </a>
+                </li>
+                <li th:classappend="${value_menu.contains('couponCreate')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/coupon/create}" class="menu-link">
+                        <div>Create new coupon</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--/ User -->
+
+        <!-- Category -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Category</span>
+        </li>
+        <li th:classappend="${value_menu.contains('categories')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-user' ></i>
+                <div>Category</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('categories_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/category/list}" class="menu-link">
+                        <div>List categories</div>
+                    </a>
+                </li>
+                <li th:classappend="${value_menu.contains('categories_create')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/category/new}" class="menu-link">
+                        <div>Create new category</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--/ Category -->
+
+        <!-- Foods -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Foods</span>
+        </li>
+        <li th:classappend="${value_menu.contains('foods')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-user' ></i>
+                <div>Food</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('foods_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/food/list}" class="menu-link">
+                        <div>List foods</div>
+                    </a>
+                </li>
+                <li th:classappend="${value_menu.contains('foods_create')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/food/new}" class="menu-link">
+                        <div>Create new food</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--/ Foods -->
+
+    </ul>
+</aside>
