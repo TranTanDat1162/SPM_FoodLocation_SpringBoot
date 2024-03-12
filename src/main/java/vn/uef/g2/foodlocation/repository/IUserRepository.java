@@ -7,4 +7,5 @@ import vn.uef.g2.foodlocation.domain.entity.User;
 @Repository
 public interface IUserRepository extends JpaRepository<User, Long> {
 
+    User findByEmail(String email);
 }

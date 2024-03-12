@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import vn.uef.g2.foodlocation.service.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -21,10 +22,18 @@ public class SecurityConfig {
     }
 
     @Bean
+    public DaoAuthenticationProvider authenticationProvider(UserService userService) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setUserDetailsService(userService);
+        return provider;
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
+//                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .anyRequest().permitAll()
                 )
                 .formLogin(formLogin -> formLogin

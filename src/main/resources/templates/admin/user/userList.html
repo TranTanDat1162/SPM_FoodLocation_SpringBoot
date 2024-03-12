@@ -36,7 +36,6 @@
                                                 <th>Phone</th>
                                                 <th>Address</th>
                                                 <th>Role</th>
-                                                <th>Actions</th>
                                             </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0">
@@ -58,13 +57,6 @@
                                                           th:if="${user.role == 'ADMIN'}">Admin</span>
                                                     <span class="badge bg-label-primary me-1"
                                                           th:if="${user.role == 'USER'}">User</span>
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-sm btn-primary"
-                                                       th:href="@{/admin/users/edit/{id}(id=${user.id})}"
-                                                    >
-                                                        <i class="bx bx-edit-alt me-1"></i> Edit
-                                                    </a>
                                                 </td>
                                             </tr>
                                             </tbody>
