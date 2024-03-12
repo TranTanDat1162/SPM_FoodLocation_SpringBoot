@@ -10,6 +10,10 @@
 <div th:insert="~{client/fragments/slider_index :: slider}"></div>
 <!-- Hero Slider End -->
 
+<!-- Map Start-->
+<div class="modal-backdrop" id="map"></div>
+<!-- Map End-->
+
 <!-- Foods Start-->
 <div class="container-fluid vesitable py-5">
     <div class="container py-5">
@@ -71,47 +75,49 @@
 </div>
 <!-- List Restaurant End -->
 
-<!-- Rating Start -->
-<div th:if="${ratings}" class="container-fluid testimonial py-5">
-    <div class="container py-5">
-        <div class="testimonial-header text-center">
-            <h4 class="text-primary">Khách hàng</h4>
-            <h1 class="display-5 mb-5 text-dark">Khách hàng với chúng tôi!</h1>
-        </div>
-        <div class="owl-carousel testimonial-carousel">
-            <!-- 1 -->
-            <th:block th:each="item : ${ratings}">
-                <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                    <div class="position-relative">
-                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
-                           style="bottom: 30px; right: 0;"></i>
-                        <div class="mb-4 pb-4 border-bottom border-secondary">
-                            <p class="mb-0" th:text="${item.content}"> content
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center flex-nowrap">
-                            <div class="bg-secondary rounded">
-                                <img th:src="${item.userAvatar}" class="img-fluid rounded"
-                                     style="width: 100px; height: 100px;" alt="">
-                            </div>
-                            <div class="ms-4 d-block">
-                                <h4 class="text-dark" th:text="${item.userFullName}">Client Name</h4>
-                                <p class="m-0 pb-3" th:text="${item.restaurantName}">Ở Food nào</p>
-                                <div class="d-flex pe-5">
-                                    <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = ${item.rateStar})}"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </th:block>
-        </div>
-    </div>
-</div>
-<!-- Rating End -->
+
+<!--&lt;!&ndash; Rating Start &ndash;&gt;-->
+<!--<div th:if="${ratings}" class="container-fluid testimonial py-5">-->
+<!--    <div class="container py-5">-->
+<!--        <div class="testimonial-header text-center">-->
+<!--            <h4 class="text-primary">Khách hàng</h4>-->
+<!--            <h1 class="display-5 mb-5 text-dark">Khách hàng với chúng tôi!</h1>-->
+<!--        </div>-->
+<!--        <div class="owl-carousel testimonial-carousel">-->
+<!--            &lt;!&ndash; 1 &ndash;&gt;-->
+<!--            <th:block th:each="item : ${ratings}">-->
+<!--                <div class="testimonial-item img-border-radius bg-light rounded p-4">-->
+<!--                    <div class="position-relative">-->
+<!--                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute"-->
+<!--                           style="bottom: 30px; right: 0;"></i>-->
+<!--                        <div class="mb-4 pb-4 border-bottom border-secondary">-->
+<!--                            <p class="mb-0" th:text="${item.content}"> content-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <div class="d-flex align-items-center flex-nowrap">-->
+<!--                            <div class="bg-secondary rounded">-->
+<!--                                <img th:src="${item.userAvatar}" class="img-fluid rounded"-->
+<!--                                     style="width: 100px; height: 100px;" alt="">-->
+<!--                            </div>-->
+<!--                            <div class="ms-4 d-block">-->
+<!--                                <h4 class="text-dark" th:text="${item.userFullName}">Client Name</h4>-->
+<!--                                <p class="m-0 pb-3" th:text="${item.restaurantName}">Ở Food nào</p>-->
+<!--                                <div class="d-flex pe-5">-->
+<!--                                    <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = ${item.rateStar})}"></span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </th:block>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; Rating End &ndash;&gt;-->
 
 <!-- Footer Start -->
 <div th:replace="~{client/fragments/footer::footer}"></div>
 <div th:replace="~{client/fragments/js::js-insert}"></div>
+<!-- prettier-ignore -->
 </body>
 </html>
