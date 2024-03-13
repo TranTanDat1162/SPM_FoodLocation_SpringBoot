@@ -28,57 +28,56 @@
                         <span th:text="${error_register}"></span>
                     </div>
                 </div>
-<!--                <form id="formAuthentication" class="mb-3" th:action="@{/register}" method="post" th:object="${user}">-->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="fullname" class="form-label">Fullname</label>-->
-<!--                        <input type="text" class="form-control" id="fullname"-->
-<!--                               placeholder="Enter your fullname"-->
-<!--                               th:field="*{fullName}"-->
-<!--                               th:classappend="${#fields.hasErrors('fullName')}? 'is-invalid' : ''"-->
-<!--                               autofocus="autofocus"-->
-<!--                        >-->
-<!--                        <span th:if="${#fields.hasErrors('fullName')}"-->
-<!--                              th:errors="*{fullName}"-->
-<!--                              class="invalid-feedback"-->
-<!--                              th:classappend="${#fields.hasErrors('fullName')}? 'd-block' : ''"-->
-<!--                        ></span>-->
-<!--                    </div>-->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="email" class="form-label">Email</label>-->
-<!--                        <input type="email" class="form-control" id="email"-->
-<!--                               placeholder="Enter your email"-->
-<!--                               th:classappend="${#fields.hasErrors('email')}? 'is-invalid' : ''"-->
-<!--                               th:field="*{email}"-->
-<!--                        >-->
-<!--                        <span th:if="${#fields.hasErrors('email')}"-->
-<!--                              th:errors="*{email}"-->
-<!--                              class="invalid-feedback"-->
-<!--                              th:classappend="${#fields.hasErrors('email')}? 'd-block' : ''"-->
-<!--                        ></span>-->
-<!--                    </div>-->
-<!--                    <div class="mb-3 form-password-toggle">-->
-<!--                        <div class="d-flex justify-content-between">-->
-<!--                            <label class="form-label" for="password">Password</label>-->
-<!--                        </div>-->
-<!--                        <div class="input-group input-group-merge">-->
-<!--                            <input type="password" id="password" class="form-control"-->
-<!--                                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"-->
-<!--                                   aria-describedby="password"-->
-<!--                                   th:field="*{password}"-->
-<!--                                   th:classappend="${#fields.hasErrors('password')}? 'is-invalid' : ''"-->
-<!--                            />-->
-<!--                            <span th:if="${#fields.hasErrors('password')}"-->
-<!--                                  th:errors="*{password}"-->
-<!--                                  class="invalid-feedback"-->
-<!--                                  th:classappend="${#fields.hasErrors('password')}? 'd-block' : ''"-->
-<!--                            ></span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="mb-3">-->
-<!--                        <button class="btn btn-primary d-grid w-100" type="submit">Đăng ký</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-
+                <form id="formAuthentication" class="mb-3" th:action="@{/client/register}" method="post" th:object="${user}">
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label">Fullname</label>
+                        <input type="text" class="form-control" id="fullname"
+                               placeholder="Enter your fullname"
+                               th:field="*{fullName}"
+                               th:classappend="${#fields.hasErrors('fullName')}? 'is-invalid' : ''"
+                               autofocus="autofocus"
+                        >
+                        <span th:if="${#fields.hasErrors('fullName')}"
+                              th:errors="*{fullName}"
+                              class="invalid-feedback"
+                              th:classappend="${#fields.hasErrors('fullName')}? 'd-block' : ''"
+                        ></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email"
+                               placeholder="Enter your email"
+                               th:classappend="${#fields.hasErrors('email')}? 'is-invalid' : ''"
+                               th:field="*{email}"
+                        >
+                        <span th:if="${#fields.hasErrors('email')}"
+                              th:errors="*{email}"
+                              class="invalid-feedback"
+                              th:classappend="${#fields.hasErrors('email')}? 'd-block' : ''"
+                        ></span>
+                    </div>
+                    <div class="mb-3 form-password-toggle">
+                        <div class="d-flex justify-content-between">
+                            <label class="form-label" for="password">Password</label>
+                        </div>
+                        <div class="input-group input-group-merge">
+                            <input type="password" id="password" class="form-control"
+                                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                   aria-describedby="password"
+                                   th:field="*{password}"
+                                   th:classappend="${#fields.hasErrors('password')}? 'is-invalid' : ''"
+                            />
+                            <span th:if="${#fields.hasErrors('password')}"
+                                  th:errors="*{password}"
+                                  class="invalid-feedback"
+                                  th:classappend="${#fields.hasErrors('password')}? 'd-block' : ''"
+                            ></span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-primary d-grid w-100" type="submit">Đăng ký</button>
+                    </div>
+                </form>
                 <p class="text-center">
                     <span>Bạn đã có tài khoản?</span>
                     <a th:href="@{/login}">
