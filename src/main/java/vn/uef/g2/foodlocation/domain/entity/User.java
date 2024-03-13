@@ -38,6 +38,6 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<RatingRestaurant> listRatingRestaurant = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<RatingRestaurant> listRatingRestaurant = new ArrayList<>();
 }
