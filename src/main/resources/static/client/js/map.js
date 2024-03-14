@@ -11,7 +11,11 @@ async function initMap() {
         zoom: 16,
         center: UEFSchoolCord,
         zoomControl: false,
-        scaleControl: true
+        scaleControl: true,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+        }
     });
 
     infoWindow = new google.maps.InfoWindow();
