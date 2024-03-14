@@ -15,6 +15,6 @@ public class SignUpDto {
     @Email(message = "Email không đúng định dạng.")
     private String email;
     @NotNull(message = "FullName không được để trống.")
-    @Pattern(regexp = "^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$", message = "Tên đăng nhập không đúng định dạng.")
+    @Pattern(regexp = "^\\p{L}+\\s*(\\p{L}+)*\\s*\\p{L}+$", message = "Tên đăng nhập không đúng định dạng.")
     private String fullName;
 }

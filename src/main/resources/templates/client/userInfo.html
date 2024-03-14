@@ -23,7 +23,7 @@
                     <div class="d-lg-flex d-none justify-content-center">
                         <div class="avatar avatar-xl me-2">
                             <th:block th:if="${userInfo.avatar != null}">
-                                <img th:src="@{'/' + ${userInfo.avatar}}" alt class="h-auto rounded-circle"
+                                <img th:src="@{'/' + ${userInfo.avatar}}" alt class="rounded-circle"
                                      width="40px"/>
                             </th:block>
                             <th:block th:unless="${userInfo.avatar != null}">
@@ -48,10 +48,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/users}"><i class="fas fa-user mx-1"></i> Cập nhật
                                     tài khoản</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/users/orders}"><i class="fas fa-history mx-1"></i> Lịch
-                                    sử đặt hàng</a>
                             </li>
                         </ul>
                         <form th:action="@{/logout}" method="post" class="d-none d-lg-flex pt-5 justify-content-center">

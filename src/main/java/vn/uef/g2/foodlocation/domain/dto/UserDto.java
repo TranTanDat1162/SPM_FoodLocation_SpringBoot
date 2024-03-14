@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class UserDto {
     private Long id;
     @NotNull(message = "Tên đăng nhập không được để trống.")
-    @Pattern(regexp = "^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$", message = "Tên đăng nhập không đúng định dạng.")
+    @Pattern(regexp = "^\\p{L}+\\s*(\\p{L}+)*\\s*\\p{L}+$", message = "Tên đăng nhập không đúng định dạng.")
     private String fullName;
     @NotNull(message = "Số điện thoại không được để trống.")
     @Pattern(regexp = "^[0-9]{10}$", message = "Số điện thoại không đúng định dạng.")
