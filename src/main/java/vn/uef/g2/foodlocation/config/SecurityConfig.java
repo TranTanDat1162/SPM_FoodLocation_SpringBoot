@@ -33,7 +33,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
                         auth -> auth
-//                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .anyRequest().permitAll()
                 )
                 .formLogin(formLogin -> formLogin
@@ -50,5 +50,8 @@ public class SecurityConfig {
         ;
         return http.build();
     }
-
+    @Bean
+    public AuthenticationManager authenticationManager(UserService userService) {
+        return new ProviderManager(authenticationProvider(userService));
+    }
 }

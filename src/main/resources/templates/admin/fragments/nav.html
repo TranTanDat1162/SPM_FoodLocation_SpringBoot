@@ -25,59 +25,60 @@
 
 
             <!-- User -->
-<!--            <li class="nav-item navbar-dropdown dropdown-user dropdown">-->
-<!--                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">-->
-<!--                    <th:block th:if="${userInfo.avatar != null}">-->
-<!--                        <img th:src="@{'/' + ${userInfo.avatar}}" alt class="h-auto rounded-circle"-->
-<!--                             width="40px"/>-->
-<!--                    </th:block>-->
-<!--                    <th:block th:unless="${userInfo.avatar != null}">-->
-<!--                        <div class="avatar me-2">-->
-<!--                                        <span class="avatar-initial r   ounded-circle bg-label-success">-->
-<!--                                            &lt;!&ndash;Run a javascript return Avatar by Name&ndash;&gt;-->
-<!--                                            <script th:inline="javascript">-->
-<!--                                                let nameArray = name.split(" ");-->
-<!--                                                document.write(nameArray.map(word => word.charAt(0).toUpperCase()).join(""));-->
-<!--                                            </script>-->
-<!--                                        </span>-->
-<!--                        </div>-->
-<!--                    </th:block>-->
-<!--                </a>-->
-<!--                <ul class="dropdown-menu dropdown-menu-end">-->
-<!--                    <li>-->
-<!--                        <a class="dropdown-item" href="#">-->
-<!--                            <div class="d-flex">-->
-<!--                                <div class="flex-shrink-0 me-3">-->
-<!--                                    <th:block th:if="${userInfo.avatar != null}">-->
-<!--                                        <img th:src="@{'/' + ${userInfo.avatar}}" alt class="h-auto rounded-circle"-->
-<!--                                             width="40px"/>-->
-<!--                                    </th:block>-->
-<!--                                    <th:block th:unless="${userInfo.avatar != null}">-->
-<!--                                        <div class="avatar me-2">-->
-<!--                                        <span class="avatar-initial rounded-circle bg-label-success">-->
-<!--                                           <span class="avatar-name"></span>-->
-<!--                                        </span>-->
-<!--                                        </div>-->
-<!--                                    </th:block>-->
-<!--                                </div>-->
-<!--                                <div class="flex-grow-1">-->
-<!--                                    <span th:text="${userInfo.fullName}" class="fw-semibold d-block">Name</span>-->
-<!--                                    <small th:text="${userInfo.role}" class="text-muted">Role</small>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <div class="dropdown-divider"></div>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a class="dropdown-item" th:href="@{/logout}">-->
-<!--                            <i class="bx bx-power-off me-2"></i>-->
-<!--                            <span class="align-middle">Log Out</span>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </li>-->
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <th:block th:if="${userInfo.avatar != null}">
+                        <img th:src="@{'/' + ${userInfo.avatar}}" alt class="h-auto rounded-circle"
+                             width="40px"/>
+                    </th:block>
+                    <th:block th:unless="${userInfo.avatar != null}">
+                        <div class="avatar me-2">
+                                        <span class="avatar-initial rounded-circle bg-label-success">
+                                            <!--Run a javascript return Avatar by Name-->
+                                            <script th:inline="javascript">
+                                                let name = [[${userInfo.fullName}]];
+                                                let nameArray = name.split(" ");
+                                                document.write(nameArray.map(word => word.charAt(0).toUpperCase()).join(""));
+                                            </script>
+                                        </span>
+                        </div>
+                    </th:block>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <th:block th:if="${userInfo.avatar != null}">
+                                        <img th:src="@{'/' + ${userInfo.avatar}}" alt class="h-auto rounded-circle"
+                                             width="40px"/>
+                                    </th:block>
+                                    <th:block th:unless="${userInfo.avatar != null}">
+                                        <div class="avatar me-2">
+                                        <span class="avatar-initial rounded-circle bg-label-success">
+                                           <span class="avatar-name"></span>
+                                        </span>
+                                        </div>
+                                    </th:block>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <span th:text="${userInfo.fullName}" class="fw-semibold d-block">Name</span>
+                                    <small th:text="${userInfo.role}" class="text-muted">Role</small>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{/logout}">
+                            <i class="bx bx-power-off me-2"></i>
+                            <span class="align-middle">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <!--/ User -->
         </ul>
     </div>
