@@ -2,11 +2,13 @@ package vn.uef.g2.foodlocation.domain.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalTime;
-import java.util.Date;
+
 @Data
-public class CreateRestaurantDTO {
+public class RestaurantDto {
+    private Long id;
     private String placeId;
     @NotNull
     private String restaurantName;

@@ -102,27 +102,12 @@
                                             ></textarea>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label" for="formImage">Image*</label>
-                                            <input
-                                                    class="form-control"
-                                                    type="file"
-                                                    id="formImage"
-                                                    th:field="*{image}"
-                                                    th:class="${#fields.hasErrors('image')}? 'form-control fieldError' : 'form-control'" required
-                                            />
-                                            <p th:if="${#fields.hasErrors('image')}" th:errors="*{image}" th:errorclass="errorMessage">
-                                                This field is required
-                                            </p>
-                                        </div>
-
-                                        <div class="mb-3">
                                             <label class="form-label" for="formOpenTime">Open Time*</label>
                                             <input
                                                     class="form-control"
                                                     type="time"
                                                     id="formOpenTime"
                                                     th:field="*{openTime}"
-                                                    th:class="${#fields.hasErrors('openTime')}? 'form-control fieldError' : 'form-control'"
                                             />
                                             <p th:if="${#fields.hasErrors('openTime')}" th:errors="*{openTime}" th:errorclass="errorMessage">
                                                 This field is required
@@ -136,7 +121,6 @@
                                                     type="time"
                                                     id="formCloseTime"
                                                     th:field="*{closeTime}"
-                                                    th:class="${#fields.hasErrors('closeTime')}? 'form-control fieldError' : 'form-control'"
                                             />
                                             <p th:if="${#fields.hasErrors('closeTime')}" th:errors="*{closeTime}" th:errorclass="errorMessage">
                                                 This field is required

@@ -17,14 +17,14 @@ public interface IRestaurantRepository extends JpaRepository<Restaurant, Long> {
 
 
 //    void save(Restaurant restaurant);
-    //Optional<Restaurant> findById(Long id);
+    Restaurant findRestaurantById(Long id);
     Optional<Restaurant> findByRestaurantName(String restaurantName);
 
 
     List<Restaurant> findByRestaurantNameContaining(String restaurantName);
     List<Restaurant> findExactByRestaurantName(String restaurantName);
 
-    //Restaurant findBySlug(String slug);
+    Restaurant findBySlug(String slug);
 
     //List<Restaurant> findAll();
     

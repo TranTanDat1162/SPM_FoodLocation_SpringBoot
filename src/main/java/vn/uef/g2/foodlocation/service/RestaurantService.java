@@ -1,17 +1,21 @@
 package vn.uef.g2.foodlocation.service;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Service;
-import vn.uef.g2.foodlocation.domain.dto.CreateRestaurantDTO;
+import vn.uef.g2.foodlocation.domain.dto.RestaurantDto;
 import vn.uef.g2.foodlocation.domain.entity.Restaurant;
 import vn.uef.g2.foodlocation.repository.IRestaurantRepository;
+import vn.uef.g2.foodlocation.utility.TitleToSlug;
+import vn.uef.g2.foodlocation.utility.UploadFile;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Set;
 
 @Transactional
 @Service
@@ -20,15 +24,12 @@ import java.util.Set;
 public class RestaurantService {
     private final IRestaurantRepository restaurantRepository;
 
-    public void add(CreateRestaurantDTO r) throws FileUploadException {
+    public void add(@Valid RestaurantDto r) throws FileUploadException {
 
-        // Kiểm tra xem nhà hàng có tên tương tự đã tồn tại hay chưa
-//        log.info("Input restaurant: " + r.getRestaurantName());
-        Optional<Restaurant> existingRestaurants = restaurantRepository.findByRestaurantName(r.getRestaurantName());
-//        log.info("Found restaurant: " + existingRestaurants.get(0).getRestaurantName());
-        if (!existingRestaurants.isEmpty()) {
+        Optional<Restaurant> existingRestaurant = restaurantRepository.findByRestaurantName(r.getRestaurantName());
+        if (existingRestaurant.isPresent()) {
             // Nếu tồn tại, bạn có thể thực hiện xử lý khi có lỗi, ví dụ:
-            throw new DuplicateRestaurantNameException("Restaurant with the same name already exists");
+            throw new DuplicateRestaurantNameException("Nhà hàng với tên đã tồn tại");
         }
 
         // Nếu không có lỗi, tiếp tục thêm nhà hàng mới
@@ -38,51 +39,45 @@ public class RestaurantService {
         res.setTotalRating(r.getTotalRating());
         res.setAddress(r.getAddress());
         res.setDescription(r.getDescription());
-//        res.setImage(UploadFile.uploadFile(r.getImage()));
-//        res.setSlug(createSlug(r.getRestaurantName()) );
+        res.setSlug(createSlug(r.getRestaurantName()));
         res.setOpenTime(r.getOpenTime());
         res.setCloseTime(r.getCloseTime());
 
         restaurantRepository.save(res);
-        // return the id of member
     }
 
-//    private String createSlug(String restaurantName) {
-//        while (true) {
-//            String slug = TitleToSlug.toSlug(restaurantName);
-//            if (restaurantRepository.findBySlug(slug)== null) {
-//                return slug;
-//            }
-//            restaurantName = restaurantName + "1";
-//        }
-//    }
 
-//    public void update(Long restaurantId, UpdateRestaurantForm updatedRestaurantForm) throws FileUploadException {
-//        // Kiểm tra xem nhà hàng có tồn tại hay không
-//        Optional<Restaurant> existingRestaurantOptional = restaurantRepository.findById(restaurantId);
-//        if (existingRestaurantOptional.isEmpty()) {
-//            throw new RestaurantNotFoundException("Restaurant not found with id: " + restaurantId);
-//        }
-//
-//        Restaurant existingRestaurant = existingRestaurantOptional.get();
-//
-//
-//        // Cập nhật thông tin của nhà hàng
-//        existingRestaurant.setRestaurantName(updatedRestaurantForm.getRestaurantName());
-//        existingRestaurant.setAddress(updatedRestaurantForm.getAddress());
-//        existingRestaurant.setDescription(updatedRestaurantForm.getDescription());
-//        existingRestaurant.setSlug(createSlug(updatedRestaurantForm.getRestaurantName()));
-//        existingRestaurant.setOpenTime(updatedRestaurantForm.getOpenTime());
-//        existingRestaurant.setCloseTime(updatedRestaurantForm.getCloseTime());
-//
-//        // Cập nhật hình ảnh nếu có
-//        if (updatedRestaurantForm.getImage() != null) {
-//            existingRestaurant.setImage(UploadFile.uploadFile(updatedRestaurantForm.getImage()));
-//        }
-//
-//        // Lưu những thay đổi vào cơ sở dữ liệu
-//        restaurantRepository.save(existingRestaurant);
-//    }
+    private String createSlug(String restaurantName) {
+        while (true) {
+            String slug = TitleToSlug.toSlug(restaurantName);
+            if (restaurantRepository.findBySlug(slug)== null) {
+                return slug;
+            }
+            restaurantName = restaurantName + "1";
+        }
+    }
+
+    public void update(Long restaurantId, RestaurantDto updatedRestaurantForm) throws FileUploadException {
+        // Kiểm tra xem nhà hàng có tồn tại hay không
+        Optional<Restaurant> existingRestaurantOptional = restaurantRepository.findById(restaurantId);
+        if (existingRestaurantOptional.isEmpty()) {
+            throw new RestaurantNotFoundException("Restaurant not found with id: " + restaurantId);
+        }
+
+        Restaurant existingRestaurant = existingRestaurantOptional.get();
+
+
+        // Cập nhật thông tin của nhà hàng
+        existingRestaurant.setRestaurantName(updatedRestaurantForm.getRestaurantName());
+        existingRestaurant.setAddress(updatedRestaurantForm.getAddress());
+        existingRestaurant.setDescription(updatedRestaurantForm.getDescription());
+        existingRestaurant.setSlug(createSlug(updatedRestaurantForm.getRestaurantName()));
+        existingRestaurant.setOpenTime(updatedRestaurantForm.getOpenTime());
+        existingRestaurant.setCloseTime(updatedRestaurantForm.getCloseTime());
+
+        // Lưu những thay đổi vào cơ sở dữ liệu
+        restaurantRepository.save(existingRestaurant);
+    }
 
     public List<Restaurant> findRestaurants() {
         return restaurantRepository.findAll();
@@ -103,9 +98,17 @@ public class RestaurantService {
             super(message);
         }
     }
-//    public Optional<Restaurant> findBySlug (String slug) {
-//        return Optional.ofNullable(restaurantRepository.findBySlug(slug));
-//    }
+    public Optional<Restaurant> findBySlug (String slug) {
+        return Optional.ofNullable(restaurantRepository.findBySlug(slug));
+    }
+
+    public void deleteBlogById(Long id) {
+        Optional<Restaurant> restaurantOptional = restaurantRepository.findById(id);
+        if (restaurantOptional.isPresent()) {
+            Restaurant restaurant = restaurantOptional.get();
+            restaurantRepository.delete(restaurant);
+        }
+    }
     
 //    // get all restaurants by food name
 //    public Set<Restaurant> findAllRestaurantsWithFoodName(String foodName) {
