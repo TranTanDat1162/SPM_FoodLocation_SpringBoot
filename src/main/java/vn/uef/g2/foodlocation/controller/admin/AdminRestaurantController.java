@@ -88,8 +88,8 @@ public class AdminRestaurantController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteBlog(@PathVariable Long id,RedirectAttributes ra) {
-        restaurantService.deleteBlogById(id);
+    public String deleteRestaurant(@PathVariable Long id,RedirectAttributes ra) {
+        restaurantService.deleteRestaurantById(id);
         ra.addFlashAttribute("success_delete", "Bạn đã vừa xóa thành công một restaurant.");
         return "redirect:/admin/restaurant/list";
     }

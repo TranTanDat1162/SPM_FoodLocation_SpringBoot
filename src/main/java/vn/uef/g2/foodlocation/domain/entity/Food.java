@@ -38,11 +38,6 @@ public class Food {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 

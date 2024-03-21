@@ -102,7 +102,7 @@ public class RestaurantService {
         return Optional.ofNullable(restaurantRepository.findBySlug(slug));
     }
 
-    public void deleteBlogById(Long id) {
+    public void deleteRestaurantById(Long id) {
         Optional<Restaurant> restaurantOptional = restaurantRepository.findById(id);
         if (restaurantOptional.isPresent()) {
             Restaurant restaurant = restaurantOptional.get();

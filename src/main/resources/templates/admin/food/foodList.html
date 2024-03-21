@@ -31,82 +31,68 @@
                     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Foods /</span> List</h4>
 
                     <!-- Basic Bootstrap Table -->
-<!--                    <div class="card">-->
-<!--                        <h5 class="card-header">Food List</h5>-->
-<!--                        &lt;!&ndash; Show table &ndash;&gt;-->
-<!--                        <div class="table-responsive text-nowrap" th:if="${!foods.isEmpty()}">-->
-<!--                            <table class="table">-->
-<!--                                <thead>-->
-<!--                                <tr>-->
-<!--                                    <th>#</th>-->
-<!--                                    <th>Name</th>-->
-<!--                                    <th>Slug</th>-->
-<!--                                    <th>Description</th>-->
-<!--                                    <th>Price</th>-->
-<!--                                    <th>Time Wait</th>-->
-<!--                                    <th>Avatar</th>-->
-<!--                                    <th>Actions</th>-->
-<!--                                </tr>-->
-<!--                                </thead>-->
-<!--                                <tbody class="table-border-bottom-0">-->
-<!--                                <tr th:each="food : ${foods}">-->
-<!--                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong th:text="${food.id} + 1"></strong></td>-->
-<!--                                    <td th:text="${food.foodName}" />-->
-<!--                                    <td th:text="${food.slug}" />-->
-<!--                                    <td th:text="${food.description}" />-->
-<!--                                    <td th:text="${food.price}" />-->
-<!--                                    <td th:text="${food.timeWait}" />-->
-<!--                                    <td>-->
-<!--                                        <img th:src="@{'~/' + ${food.image}}"-->
-<!--                                             th:alt="${food.foodName}"-->
-<!--                                             class="img-fluid"-->
-<!--                                             style="width: auto; height: 50px;"-->
-<!--                                        />-->
-<!--                                    </td>-->
-<!--                                    <td>-->
-<!--                                        <div class="dropdown">-->
-<!--                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">-->
-<!--                                                <i class="bx bx-dots-vertical-rounded"></i>-->
-<!--                                            </button>-->
-<!--                                            <div class="dropdown-menu">-->
-<!--                                                <a class="dropdown-item" th:href="@{/admin/food/update(foodId=${food.id})}"-->
-<!--                                                ><i class="bx bx-edit-alt me-1"></i> Edit</a-->
-<!--                                                >-->
-<!--                                                <a class="dropdown-item"-->
-<!--                                                   type="button" data-bs-toggle="modal" data-bs-target="#modalCenter"-->
-<!--                                                ><i class="bx bx-trash me-1"></i> Delete</a-->
-<!--                                                >-->
-<!--                                            </div>-->
+                    <div class="card">
+                        <h5 class="card-header">Food List</h5>
+                        <th:block th:if="${success_upload}">
+                            <div th:replace="~{client/fragments/elements/alert::success(message= ${success_upload} )}"></div>
+                        </th:block>
+                        <th:block th:if="${success_delete}">
+                            <div th:replace="~{client/fragments/elements/alert::success(message= ${success_delete} )}"></div>
+                        </th:block>
+                        <!-- Show table -->
+                        <div class="table-responsive text-nowrap" th:if="${!foods.isEmpty()}">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Slug</th>
+                                    <th>Description</th>
+                                    <th>Restaurant</th>
+                                    <th>Price</th>
+                                    <th>Time Wait</th>
+                                    <th>Avatar</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                <tr th:each="food : ${foods}">
+                                    <td th:text="${food.foodName}" />
+                                    <td th:text="${food.slug}" />
+                                    <td th:text="${food.description}" />
+                                    <td th:text="${food.getRestaurant().restaurantName}" />
+                                    <td th:text="${food.price}" />
+                                    <td th:text="${food.timeWait}" />
+                                    <td>
+                                        <img th:src="@{'~/' + ${food.image}}"
+                                             th:alt="${food.foodName}"
+                                             class="img-fluid"
+                                             style="width: auto; height: 50px;"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary"
+                                           th:href="@{/admin/food/update/{id}(id=${food.id})}"
+                                        >
+                                            <i class="bx bx-edit-alt me-1"></i> Edit
+                                        </a>
 
-<!--                                            &lt;!&ndash; Bootrap Modal &ndash;&gt;-->
-<!--                                            <div class="modal fade" id="modalCenter" tabindex="-1" style="display: none;" aria-hidden="true">-->
-<!--                                                <div class="modal-dialog modal-dialog-centered" role="document">-->
-<!--                                                    <div class="modal-content">-->
-<!--                                                        <div class="modal-header">-->
-<!--                                                            <h5 class="modal-title" id="modalCenterTitle">Are you sure to delete this?</h5>-->
-<!--                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="modal-footer">-->
-<!--                                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">-->
-<!--                                                                Close-->
-<!--                                                            </button>-->
-<!--                                                            <a type="button" class="btn btn-primary" th:href="@{/admin/food/delete(foodId=${food.id})}">Delete</a>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            &lt;!&ndash; Bootrap Modal &ndash;&gt;-->
-<!--                                        </div>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                                </tbody>-->
-<!--                            </table>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash; Empty list &ndash;&gt;-->
-<!--                        <div class="card-body" th:if="${foods.isEmpty()}">-->
-<!--                            <p class="card-text">There is not nothing to show!</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                                        <a th:href="@{/admin/food/delete/{id}(id=${food.id})}"
+                                           class="btn btn-sm btn-danger"
+                                           onclick="return confirm('Bạn thật sự muốn xóa nó?')"
+                                           style="color: #FFFFFF"
+                                        >
+                                            <i class="bx bx-trash me-1"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Empty list -->
+                        <div class="card-body" th:if="${foods.isEmpty()}">
+                            <p class="card-text">There is not nothing to show!</p>
+                        </div>
+                    </div>
                     <!--/ Basic Bootstrap Table -->
                 </div>
                 <!-- / Content -->

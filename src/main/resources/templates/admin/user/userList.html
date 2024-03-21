@@ -30,8 +30,7 @@
                                         <table class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Fullname</th>
+                                                <th>FullName</th>
                                                 <th>Email</th>
                                                 <th>Phone</th>
                                                 <th>Address</th>
@@ -40,7 +39,6 @@
                                             </thead>
                                             <tbody class="table-border-bottom-0">
                                             <tr th:each="user : ${users}">
-                                                <td th:text="${user.id}"></td>
                                                 <td>
                                                     <th:block th:if="${user.avatar != null}">
                                                         <img th:src="@{'/' + ${user.avatar}}"
