@@ -70,9 +70,7 @@
             <div th:each="restaurant : ${restaurants}" class="col-lg-6 col-xl-4">
                 <div class="p-4 border border-primary rounded vesitable-item bg-light">
                     <div class="row align-items-center">
-                        <div class="col-6">
-                            <!-- Thymeleaf expression to get image URL from the restaurant object -->
-                            <img th:src="@{'/' + ${restaurant.getImage()} }" class="img-fluid rounded-circle w-100" alt="">
+                        <div class="col-6" th:id="${restaurant.getPlaceId()}" th:attr="data-latitude=${restaurant.getLatitude()}, data-longitude=${restaurant.getLongitude()}">
                         </div>
                         <div class="col-6">
                             <a th:href="@{'/restaurant/' + ${restaurant.getSlug()}}" class="h5" th:text="${restaurant.getRestaurantName()}">Nhà hàng 1</a>
@@ -132,6 +130,15 @@
 <!-- Footer Start -->
 <div th:replace="~{client/fragments/footer::footer}"></div>
 <div th:replace="~{client/fragments/js::js-insert}"></div>
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+        const restaurantElements = document.querySelectorAll(".col-6[id]"); // Select elements with ID
+
+        restaurantElements.forEach(element => {
+            generateMapDirectionEmbed(element.id, element.dataset.latitude, element.dataset.longitude);
+        });
+    });
+</script>
 <!-- prettier-ignore -->
 </body>
 </html>

@@ -90,6 +90,35 @@ async function innit() {
 
 }
 // You can call generateMapEmbed with different center coordinates to create multiple iframes
+async function generateMapDirectionEmbed(placeId, des_lat, des_lng) {
+    let center = await getCurrentLocation() ?? '10.797436384668082,106.7035743219549';
+
+    // Replace with your actual API key
+    const apiKey = "AIzaSyA5hp-jSwTRsJQOsmed-sZHF7kOX1jl_yw";
+    const cordinate = center.split(",");
+
+    // Calculate distance between POIs (replace with your coordinates)
+    const distance = calculateDistance(cordinate[0], cordinate[1], des_lat, des_lng);
+
+    // Estimate zoom level based on distance and map size
+    const zoomLevel = estimateZoomLevel(distance);
+
+    // Construct the iframe source URL
+    let iframeSrc = `https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${center}&destination=place_id:${placeId}&zoom=${zoomLevel}`;
+
+    // Create the iframe element
+    const iframe = document.createElement("iframe");
+    iframe.width = "100%";
+    iframe.height = "100%";
+    iframe.frameborder = "0";
+    iframe.style.border = "0";
+    iframe.allowfullscreen = true;
+    iframe.referrerpolicy = "no-referrer-when-downgrade";
+    iframe.src = iframeSrc;
+
+    const mapElement = document.getElementById(placeId); // Replace with your container element ID
+    mapElement.appendChild(iframe);
+}
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
@@ -110,4 +139,43 @@ function splitToPlus(text) {
 
     // Use replace method with a regular expression
     return text.replace(/\s/g, '+');
+}
+
+function calculateDistance(lat1, lng1, lat2, lng2) {
+    const R = 6371; // Earth's radius in kilometers
+
+    const latRad1 = radians(lat1);
+    const latRad2 = radians(lat2);
+    const dLat = radians(lat2 - lat1);
+    const dLng = radians(lng2 - lng1);
+
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(latRad1) * Math.cos(latRad2) *
+        Math.sin(dLng / 2) * Math.sin(dLng / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return R * c;
+}
+
+// Helper function to convert degrees to radians
+function radians(degrees) {
+    return degrees * Math.PI / 180;
+}
+
+function estimateZoomLevel(distanceInKm) {
+    switch (true) {
+        case distanceInKm < 1:
+            return 14; // Very close zoom (e.g., building level)
+        case distanceInKm < 5:
+            return 12; // Close zoom (e.g., street level)
+        case distanceInKm < 10:
+            return 10; // Town/city level
+        case distanceInKm < 25:
+            return 8; // Regional area
+        case distanceInKm < 50:
+            return 6; // State/province level
+        default:
+            return 0; // Very far out
+    }
 }

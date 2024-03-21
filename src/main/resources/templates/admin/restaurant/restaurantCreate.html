@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="card-body">
                                     <form th:action="@{/admin/restaurant/create}" method="POST" th:object="${restaurantForm}" enctype="multipart/form-data">
-                                        <input id="formPlaceId" type="hidden" th:value="${restaurantForm.placeId}" />
+                                        <input id="formPlaceId" type="hidden" th:field="${restaurantForm.placeId}" />
                                         <input type="hidden" th:field="*{id}" />
                                         <div class="mb-3">
                                             <label class="form-label" for="formName">Restaurant Name*</label>
