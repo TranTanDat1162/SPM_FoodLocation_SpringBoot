@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,9 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "restaurant_id")
     private Long id;
+
+    @Column(name = "place_id")
+    private String placeId;
 
     @Column(name = "restaurant_name")
     private String restaurantName;
@@ -34,10 +38,10 @@ public class Restaurant {
     private String image;
 
     @Column(name = "open_time")
-    private String openTime;
+    private LocalTime openTime;
 
     @Column(name = "close_time")
-    private String closeTime;
+    private LocalTime closeTime;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -54,6 +58,9 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<RatingRestaurant> listRatingRestaurant = new ArrayList<>();
 
+    @Column(name = "total_rating")
+    private Double totalRating;
+
     public Restaurant() {
     }
 
@@ -62,9 +69,10 @@ public class Restaurant {
                       String description,
                       String address,
                       String image,
-                      String openTime,
-                      String closeTime,
-                      boolean isActive
+                      LocalTime openTime,
+                      LocalTime closeTime,
+                      boolean isActive,
+                      Double totalRating
     ) {
         this.restaurantName = restaurantName;
         this.slug = slug;
@@ -74,6 +82,7 @@ public class Restaurant {
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.isActive = isActive;
+        this.totalRating = totalRating;
     }
 
     // add convenience methods for bi-directional relationship

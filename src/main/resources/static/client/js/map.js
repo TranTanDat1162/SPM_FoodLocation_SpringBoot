@@ -29,7 +29,7 @@ async function getCurrentLocation(){
 }
 async function generateMapEmbed(center) {
     center = await getCurrentLocation() ?? '10.797436384668082,106.7035743219549';
-    // Replace with your actual API key
+
     const apiKey = "AIzaSyA5hp-jSwTRsJQOsmed-sZHF7kOX1jl_yw";
     const searchTerm = `tiệm+nước+và+quán+ăn+trong+phường`;
     const zoomLevel = 15;
