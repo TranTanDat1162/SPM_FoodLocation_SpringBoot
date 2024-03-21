@@ -13,18 +13,24 @@ async function getCurrentLocation(){
         );
     });
 }
-async function generateMapEmbed(center) {
+async function generateMapEmbed(center, keyword, radius) {
     //center = await getCurrentLocation() ?? '10.797436384668082,106.7035743219549';
     // Replace with your actual API key
     const apiKey = "AIzaSyA5hp-jSwTRsJQOsmed-sZHF7kOX1jl_yw";
-    const searchTerm = `quán+ăn+và+quán+nước`;
-    const zoomLevel = 15;
+    let searchTerm = keyword ?? `quán+ăn+và+quán+nước`;
+    let zoomLevel = radius ?? 15;
 
     // // Encode special characters in the search term
     // const encodedSearchTerm = encodeURIComponent(searchTerm);
 
     // Construct the iframe source URL
-    const iframeSrc = `https://www.google.com/maps/embed/v1/search?key=${apiKey}&q=${searchTerm}&center=${center}&zoom=${zoomLevel}`;
+
+    let iframeSrc = `https://www.google.com/maps/embed/v1/search?key=${apiKey}&q=${searchTerm}&zoom=${zoomLevel}`;
+
+    // Add center parameter only if it exists
+    if (center) {
+        iframeSrc += `&center=${center}`;
+    }
 
     // Create the iframe element
     const iframe = document.createElement("iframe");
@@ -55,24 +61,13 @@ async function innit() {
         // Handle location errors gracefully (e.g., display an error message)
     }
 
-    const locationButton = document.createElement("button");
+    const locationButton = document.getElementById("pan_to_current");
+    const searchButton = document.getElementById("query_map");
+    const searchedKeyword = document.getElementById("query_keyword");
+    const searchedRegion = document.getElementById("district");
+    const searchedRadius = document.getElementById("radius");
 
-    locationButton.textContent = "Pan to Current Location";
 
-    locationButton.classList.add("btn");
-    locationButton.classList.add("btn-primary");
-    locationButton.classList.add("border-2");
-    locationButton.classList.add("border-primary");
-    locationButton.classList.add("py-3");
-    locationButton.classList.add("px-4");
-    locationButton.classList.add("position-absolute");
-    locationButton.classList.add("rounded-pill");
-    locationButton.classList.add("text-white");
-    locationButton.classList.add("h-100");
-
-    const location_btn = document.getElementById("current_loc");
-
-    location_btn.appendChild(locationButton);
 
     locationButton.addEventListener("click", async () => {
         try {
@@ -83,6 +78,15 @@ async function innit() {
             // Handle location errors gracefully (e.g., display an error message)
         }
     });
+
+    searchButton.addEventListener("click", async () =>{
+        try {
+            generateMapEmbed(null, splitToPlus(searchedKeyword.value)+" near+"+searchedRegion.value, searchedRadius.value);
+        } catch (error) {
+            console.error('Error getting current location:', error);
+            // Handle location errors gracefully (e.g., display an error message)
+        }
+    })
 
 }
 // You can call generateMapEmbed with different center coordinates to create multiple iframes
@@ -96,5 +100,14 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     );
     infoWindow.open(map);
 }
-
 window.innit()
+
+function splitToPlus(text) {
+    // Check if text is a string and avoid errors with non-strings
+    if (typeof text !== 'string') {
+        return text;
+    }
+
+    // Use replace method with a regular expression
+    return text.replace(/\s/g, '+');
+}

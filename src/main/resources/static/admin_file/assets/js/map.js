@@ -138,51 +138,6 @@ async function initMap() {
 
             restarantInfoParse(place);
 
-            // placeId = place.place_id;
-            //
-            // // Name
-            // name = place.name;
-            //
-            // // Rating (if available)
-            // rating = place.rating;
-            // userRatingsTotal = place.user_ratings_total;
-            //
-            // // Address
-            // formattedAddress = place.formatted_address;
-            //
-            // // Types
-            // type = place.types;
-            //
-            // // Opening hours (parsing might be needed)
-            // openingHours = place.opening_hours;
-            //
-            // // Website (if available)
-            // websiteUrl = place.url;
-            //
-            // //-----------------------------------------
-            // const formId = document.getElementById("formPlaceId");
-            // const formName = document.getElementById("formName");
-            // const formAddress = document.getElementById("formAddress");
-            // const formRating = document.getElementById("formRating"); // Assuming rating is a text field here (modify if it's a different input type)
-            // const formDescription = document.getElementById("formDescription");
-            // const formOpenTime = document.getElementById("formOpenTime");
-            // const formCloseTime = document.getElementById("formCloseTime");
-            //
-            // formId.value = place.place_id;
-            // // Fill in the form fields with place details
-            // formName.value = place.name;
-            // formAddress.value = place.formatted_address;
-            // // Handle rating if it's displayed as an average (adjust based on your data format)
-            // formRating.value = place.rating ? place.rating : "";  // Assuming 'rating' holds the average value
-            //
-            // // You might need to format the description if it's a URL from your previous logic
-            // formDescription.value = place.url ? place.url : "" + " " + place.types ? place.types : "";
-            //
-            // formOpenTime.value = extractOpeningHours(place.opening_hours); // Assuming extractOpeningHours returns a valid time format
-            // formCloseTime.value = extractClosingHours(place.opening_hours); // Assuming extractClosingHours returns a valid time format
-            //
-            // //-----------------------------------------
-
         });
         map.fitBounds(bounds);
     });
@@ -455,6 +410,9 @@ function restarantInfoParse(place){
 
     // Address
     formattedAddress = place.formatted_address;
+
+    // Lat&Lng
+    cordinate = place.latLng;
 
     // Types
     type = place.types;
