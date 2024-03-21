@@ -12,6 +12,7 @@ import vn.uef.g2.foodlocation.repository.IRestaurantRepository;
 import vn.uef.g2.foodlocation.utility.TitleToSlug;
 import vn.uef.g2.foodlocation.utility.UploadFile;
 
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -38,10 +39,12 @@ public class RestaurantService {
         res.setRestaurantName(r.getRestaurantName());
         res.setTotalRating(r.getTotalRating());
         res.setAddress(r.getAddress());
+        res.setLatitude(r.getLatitude());
+        res.setLongitude(r.getLongitude());
         res.setDescription(r.getDescription());
         res.setSlug(createSlug(r.getRestaurantName()));
-        res.setOpenTime(r.getOpenTime());
-        res.setCloseTime(r.getCloseTime());
+        res.setOpenTime(LocalTime.parse(r.getOpenTime()));
+        res.setCloseTime(LocalTime.parse(r.getCloseTime()));
 
         restaurantRepository.save(res);
     }
@@ -70,10 +73,12 @@ public class RestaurantService {
         // Cập nhật thông tin của nhà hàng
         existingRestaurant.setRestaurantName(updatedRestaurantForm.getRestaurantName());
         existingRestaurant.setAddress(updatedRestaurantForm.getAddress());
+        existingRestaurant.setLongitude(updatedRestaurantForm.getLongitude());
+        existingRestaurant.setLatitude(updatedRestaurantForm.getLatitude());
         existingRestaurant.setDescription(updatedRestaurantForm.getDescription());
         existingRestaurant.setSlug(createSlug(updatedRestaurantForm.getRestaurantName()));
-        existingRestaurant.setOpenTime(updatedRestaurantForm.getOpenTime());
-        existingRestaurant.setCloseTime(updatedRestaurantForm.getCloseTime());
+        existingRestaurant.setOpenTime(LocalTime.parse(updatedRestaurantForm.getOpenTime()));
+        existingRestaurant.setCloseTime(LocalTime.parse(updatedRestaurantForm.getCloseTime()));
 
         // Lưu những thay đổi vào cơ sở dữ liệu
         restaurantRepository.save(existingRestaurant);

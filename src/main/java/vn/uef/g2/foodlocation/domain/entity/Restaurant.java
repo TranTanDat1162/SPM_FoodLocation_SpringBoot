@@ -25,6 +25,12 @@ public class Restaurant {
     @Column(name = "restaurant_name")
     private String restaurantName;
 
+    @Column(name = "latitude")
+    private String latitude;
+
+    @Column(name = "longitude")
+    private String longitude;
+
     @Column(name = "slug")
     private String slug;
 
@@ -68,6 +74,8 @@ public class Restaurant {
                       String slug,
                       String description,
                       String address,
+                      String latitude,
+                      String longitude,
                       String image,
                       LocalTime openTime,
                       LocalTime closeTime,
@@ -78,6 +86,8 @@ public class Restaurant {
         this.slug = slug;
         this.description = description;
         this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.image = image;
         this.openTime = openTime;
         this.closeTime = closeTime;

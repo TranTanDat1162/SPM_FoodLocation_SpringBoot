@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="card-body">
                                     <form th:action="@{/admin/restaurant/create}" method="POST" th:object="${restaurantForm}" enctype="multipart/form-data">
-                                        <input id="formPlaceId" type="hidden" th:value="${restaurantForm.placeId}" />
+                                        <input id="formPlaceId" type="hidden" th:field="${restaurantForm.placeId}" />
                                         <input type="hidden" th:field="*{id}" />
                                         <div class="mb-3">
                                             <label class="form-label" for="formName">Restaurant Name*</label>
@@ -86,6 +86,14 @@
                                             <label class="form-label" for="formDescription">Description</label>
                                             <textarea id="formDescription" class="form-control" name="description" placeholder="Describe about this restaurant"
                                                       th:field="*{description}"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formLatitude">Latitude*</label>
+                                            <input class="form-control" type="text" id="formLatitude" th:field="*{latitude}" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formLongitude">Longitude*</label>
+                                            <input class="form-control" type="text" id="formLongitude" th:field="*{longitude}" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="formOpenTime">Open Time*</label>

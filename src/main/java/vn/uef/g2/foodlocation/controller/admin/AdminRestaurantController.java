@@ -70,6 +70,9 @@ public class AdminRestaurantController {
         RestaurantDto updatedRestaurantForm = new RestaurantDto();
         BeanUtils.copyProperties(restaurant, updatedRestaurantForm);
 
+        updatedRestaurantForm.setOpenTime(restaurant.getOpenTime().toString());
+        updatedRestaurantForm.setCloseTime(restaurant.getCloseTime().toString());
+
         // Truyền đối tượng RestaurantForm vào model để hiển thị trong form
         model.addAttribute("res", updatedRestaurantForm);
 
