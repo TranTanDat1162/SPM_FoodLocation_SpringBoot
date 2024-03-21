@@ -6,32 +6,18 @@ const options = {
 let map, infoWindow;
 //For Client------------------------------------------------
 async function getCurrentLocation(){
-    if (navigator.geolocation) {
+    return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                };
-
-                const center = `${pos.lat},${pos.lng}`;
-                return center;
-            },
-            () => {
-                handleLocationError(true, infoWindow, map.getCenter());
-            },
-            options
+            (position) => resolve(`${position.coords.latitude},${position.coords.longitude}`),
+            (error) => reject(error)
         );
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-    }
+    });
 }
 async function generateMapEmbed(center) {
-    center = await getCurrentLocation() ?? '10.797436384668082,106.7035743219549';
-
+    //center = await getCurrentLocation() ?? '10.797436384668082,106.7035743219549';
+    // Replace with your actual API key
     const apiKey = "AIzaSyA5hp-jSwTRsJQOsmed-sZHF7kOX1jl_yw";
-    const searchTerm = `tiệm+nước+và+quán+ăn+trong+phường`;
+    const searchTerm = `quán+ăn+và+quán+nước`;
     const zoomLevel = 15;
 
     // // Encode special characters in the search term
@@ -59,9 +45,15 @@ async function generateMapEmbed(center) {
     else
         mapElement.appendChild(iframe);
 }
-function innit() {
+async function innit() {
 
-    generateMapEmbed(null);
+    try {
+        const cords = await getCurrentLocation();
+        generateMapEmbed(cords);
+    } catch (error) {
+        console.error('Error getting current location:', error);
+        // Handle location errors gracefully (e.g., display an error message)
+    }
 
     const locationButton = document.createElement("button");
 
@@ -82,10 +74,14 @@ function innit() {
 
     location_btn.appendChild(locationButton);
 
-    locationButton.addEventListener("click", () => {
-
-        generateMapEmbed(getCurrentLocation());
-
+    locationButton.addEventListener("click", async () => {
+        try {
+            const cords = await getCurrentLocation();
+            generateMapEmbed(cords);
+        } catch (error) {
+            console.error('Error getting current location:', error);
+            // Handle location errors gracefully (e.g., display an error message)
+        }
     });
 
 }
