@@ -4,7 +4,7 @@ const options = {
     maximumAge: 0,
 };
 let map, infoWindow, currentCord;
-let placeId, name, rating, userRatingsTotal, formattedAddress, type, openingHours, websiteUrl;
+//let placeId, name, rating, userRatingsTotal, formattedAddress, type, openingHours, websiteUrl;
 async function getCurrentLocation(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
