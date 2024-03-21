@@ -90,7 +90,14 @@
                                                 This field is required
                                             </p>
                                         </div>
-
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formLatitude">Latitude*</label>
+                                            <input class="form-control" type="text" id="formLatitude" th:field="*{latitude}" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formLongitude">Longitude*</label>
+                                            <input class="form-control" type="text" id="formLongitude" th:field="*{longitude}" />
+                                        </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="formDescription">Description</label>
                                             <textarea

@@ -14,8 +14,12 @@ public class RestaurantDto {
     private String restaurantName;
     @NotNull
     private String address;
+    @NotNull
+    private String latitude;
+    @NotNull
+    private String longitude;
     private Double totalRating;
     private String description;
-    private LocalTime openTime;
-    private LocalTime closeTime;
+    private String openTime;
+    private String closeTime;
 }

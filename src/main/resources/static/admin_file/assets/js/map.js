@@ -389,10 +389,11 @@ class ClickEventHandler {
         // If the event has a placeId, use it.
         if (isIconMouseEvent(event)) {
             console.log("You clicked on place:" + event.placeId);
-            // Calling e.stop() on the event prevents the default info window from
-            // showing.
-            // If you call stop here when there is no placeId you will prevent some
-            // other map click event handlers from receiving the event.
+
+            document.getElementById("formLatitude").value = event.latLng.lat();
+            document.getElementById("formLongitude").value = event.latLng.lng();
+            document.getElementById("formPlaceId").value = event.placeId;
+
             event.stop();
             if (event.placeId) {
                 //this.calculateAndDisplayRoute(event.placeId);
@@ -445,9 +446,6 @@ class ClickEventHandler {
 }
 
 function restarantInfoParse(place){
-
-    placeId = place.place_id;
-
     // Name
     name = place.name;
 
@@ -467,25 +465,27 @@ function restarantInfoParse(place){
     // Website (if available)
     websiteUrl = place.url;
 
-    const formId = document.getElementById("formPlaceId");
+
+
     const formName = document.getElementById("formName");
     const formAddress = document.getElementById("formAddress");
-    const formRating = document.getElementById("formRating"); // Assuming rating is a text field here (modify if it's a different input type)
+    const formRating = document.getElementById("formRating");
     const formDescription = document.getElementById("formDescription");
     const formOpenTime = document.getElementById("formOpenTime");
     const formCloseTime = document.getElementById("formCloseTime");
 
-    formId.value = place.place_id;
+
     // Fill in the form fields with place details
     formName.value = place.name;
+
+    // Fill in Location
     formAddress.value = place.formatted_address;
-    // Handle rating if it's displayed as an average (adjust based on your data format)
+
     formRating.value = place.rating ? place.rating : "";  // Assuming 'rating' holds the average value
 
-    // You might need to format the description if it's a URL from your previous logic
     formDescription.value = place.url ? place.url : "" + " " + place.types ? place.types : "";
 
-    formOpenTime.value = extractOpeningHours(place.opening_hours); // Assuming extractOpeningHours returns a valid time format
-    formCloseTime.value = extractClosingHours(place.opening_hours); // Assuming extractClosingHours returns a valid time format
+    formOpenTime.value = extractOpeningHours(place.opening_hours);
+    formCloseTime.value = extractClosingHours(place.opening_hours);
 
 }
