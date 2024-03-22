@@ -108,4 +108,11 @@ public class FoodService {
         }
     }
 
+    public List<Food> findListFoodByRestaurantId(Long restaurantId) {
+        return iFoodRepository.findFoodByRestaurantId(restaurantId);
+    }
+
+    public Optional<Food> findBySlug(String slug) {
+        return Optional.ofNullable(iFoodRepository.findBySlug(slug));
+    }
 }
