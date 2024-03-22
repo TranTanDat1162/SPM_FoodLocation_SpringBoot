@@ -19,6 +19,7 @@ import vn.uef.g2.foodlocation.service.RestaurantService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -92,6 +93,14 @@ public class ClientController {
         List<Restaurant> listWithoutDuplicates = totalRestaurants.stream()
                 .distinct()
                 .toList();
+
+        List<Food> foodList = listWithoutDuplicates.stream()
+                .filter(Objects::nonNull) // Optional null check
+                .map(Restaurant::getListFood) // Get food list from each restaurant
+                .flatMap(List::stream) // Flatten individual food lists
+                .collect(Collectors.toList());
+
+        model.addAttribute("foods", foodList);
 
         model.addAttribute("restaurants", listWithoutDuplicates);
         return "client/index";
