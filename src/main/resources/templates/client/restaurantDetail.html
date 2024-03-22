@@ -18,9 +18,11 @@
         <div class="row gy-4 d-flex align-items-stretch">
             <!-- Sử dụng Thymeleaf để truy cập thông tin từ đối tượng Restaurant -->
             <div class="col-lg-5 d-flex">
-                <div class="restaurant-img-box position-relative border p-2 d-flex flex-column justify-content-between">
+                <div class="restaurant-img-box position-relative border p-2 d-flex flex-column justify-content-between w-100"
+                     th:id="${restaurant.getPlaceId()}" th:attr="data-latitude=${restaurant.getLatitude()}, data-longitude=${restaurant.getLongitude()}">
                     <!-- Sử dụng Thymeleaf để đặt đường dẫn hình ảnh của nhà hàng -->
-                    <img th:src="@{'/' + ${restaurant.getImage()} }" alt="restaurant name" class="res-img w-100 scaleX-n1-rtl">
+<!--                    <img th:src="@{'/' + ${restaurant.getImage()} }" alt="restaurant name" class="res-img w-100 scaleX-n1-rtl">-->
+
                 </div>
             </div>
             <div class="col-lg-7 d-flex">
@@ -88,5 +90,14 @@
 
 <div th:replace="~{client/fragments/footer::footer}"></div>
 <div th:replace="~{client/fragments/js::js-insert}"></div>
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+        const restaurantElements = document.querySelectorAll(".restaurant-img-box[id]"); // Select elements with ID
+
+        restaurantElements.forEach(element => {
+            generateMapDirectionEmbed(element.id, element.dataset.latitude, element.dataset.longitude);
+        });
+    });
+</script>
 </body>
 </html>

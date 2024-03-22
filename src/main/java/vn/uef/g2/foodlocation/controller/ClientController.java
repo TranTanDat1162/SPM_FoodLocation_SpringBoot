@@ -83,19 +83,22 @@ public class ClientController {
     }
     @GetMapping(value = {"/search"})
     public String getKeyword(@RequestParam String keyword,String district, String radius, Model model) {
+
         List<Restaurant> restaurantsByName = restaurantService.findMatchingRestaurant(keyword);
         Set<Restaurant> restaurantsByFood = restaurantService.findAllRestaurantsWithFoodName(keyword);
 
+        // Merge 2 results
         List<Restaurant> totalRestaurants = new ArrayList<>();
         totalRestaurants.addAll(restaurantsByFood);
         totalRestaurants.addAll(restaurantsByName);
 
+        // Filter out all duplicates results
         List<Restaurant> listWithoutDuplicates = totalRestaurants.stream()
                 .distinct()
                 .toList();
 
         List<Food> foodList = listWithoutDuplicates.stream()
-                .filter(Objects::nonNull) // Optional null check
+                .filter(Objects::nonNull)
                 .map(Restaurant::getListFood) // Get food list from each restaurant
                 .flatMap(List::stream) // Flatten individual food lists
                 .collect(Collectors.toList());
