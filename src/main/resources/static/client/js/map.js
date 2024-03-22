@@ -176,7 +176,7 @@ function estimateZoomLevel(distanceInKm) {
         case distanceInKm < 10:
             return 11; // Town/city level
         case distanceInKm < 25:
-            return 8; // Regional area
+            return 10; // Regional area
         case distanceInKm < 50:
             return 6; // State/province level
         default:

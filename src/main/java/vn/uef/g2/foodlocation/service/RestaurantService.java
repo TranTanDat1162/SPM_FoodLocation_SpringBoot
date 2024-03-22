@@ -13,10 +13,7 @@ import vn.uef.g2.foodlocation.utility.TitleToSlug;
 import vn.uef.g2.foodlocation.utility.UploadFile;
 
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Transactional
 @Service
@@ -114,9 +111,15 @@ public class RestaurantService {
             restaurantRepository.delete(restaurant);
         }
     }
-    
-//    // get all restaurants by food name
-//    public Set<Restaurant> findAllRestaurantsWithFoodName(String foodName) {
-//        return restaurantRepository.FindAllWithFoodNameQuery(foodName);
-//    }
+
+    public List<Restaurant> findMatchingRestaurant(String name) throws RestaurantNotFoundException{
+        //        if (restaurantList.isEmpty()){
+//            throw new RestaurantNotFoundException("Unable to find matching restaurants");
+//        }
+        return restaurantRepository.findByRestaurantNameContaining(name);
+    }
+    // get all restaurants by food name
+    public Set<Restaurant> findAllRestaurantsWithFoodName(String foodName) {
+        return restaurantRepository.FindAllWithFoodNameQuery(foodName);
+    }
 }
