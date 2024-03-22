@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.uef.g2.foodlocation.domain.dto.RestaurantDto;
+import vn.uef.g2.foodlocation.domain.entity.Food;
 import vn.uef.g2.foodlocation.domain.entity.Restaurant;
+import vn.uef.g2.foodlocation.service.FoodService;
 import vn.uef.g2.foodlocation.service.RestaurantService;
 
 import java.util.ArrayList;
@@ -23,11 +25,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ClientController {
     private final RestaurantService restaurantService;
+    private final FoodService foodService;
 
     @GetMapping(value = {"", "/"})
     public String home(Model model) {
         List<Restaurant> restaurants = restaurantService.findRestaurants();
+        List<Food> foodList = foodService.findAll();
         model.addAttribute("restaurants", restaurants);
+        model.addAttribute("foods", foodList);
         return "client/index";
     }
 
