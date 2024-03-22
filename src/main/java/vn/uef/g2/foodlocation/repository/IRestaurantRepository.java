@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import vn.uef.g2.foodlocation.domain.entity.Food;
 import vn.uef.g2.foodlocation.domain.entity.Restaurant;
 
 import java.util.List;
@@ -14,7 +15,6 @@ import java.util.Set;
 @Repository
 @Transactional
 public interface IRestaurantRepository extends JpaRepository<Restaurant, Long> {
-
 
 //    void save(Restaurant restaurant);
     Restaurant findRestaurantById(Long id);

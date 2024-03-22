@@ -21,9 +21,6 @@ public class RatingRestaurant {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "rate_star")
-    private int rateStar;
-
     @Column(name = "create_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
