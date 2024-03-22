@@ -13,12 +13,16 @@ async function getCurrentLocation(){
         );
     });
 }
-async function generateMapEmbed(center, keyword, radius) {
+async function generateMapEmbed(center, keyword, region, radius) {
     //center = await getCurrentLocation() ?? '10.797436384668082,106.7035743219549';
     // Replace with your actual API key
     const apiKey = "AIzaSyA5hp-jSwTRsJQOsmed-sZHF7kOX1jl_yw";
-    let searchTerm = keyword ?? `quán+ăn+và+quán+nước`;
-    let zoomLevel = radius ?? 15;
+
+    let searchTerm = keyword?.trim() || "quán+ăn+và+quán+nước";
+
+    searchTerm = searchTerm + (region ?? '');
+
+    let zoomLevel = radius || 15;
 
     // // Encode special characters in the search term
     // const encodedSearchTerm = encodeURIComponent(searchTerm);
@@ -81,7 +85,7 @@ async function innit() {
 
     searchButton.addEventListener("click", async () =>{
         try {
-            generateMapEmbed(null, splitToPlus(searchedKeyword.value)+" near+"+searchedRegion.value, searchedRadius.value);
+            generateMapEmbed(null, splitToPlus(searchedKeyword.value), "+near+"+searchedRegion.value, searchedRadius.value);
         } catch (error) {
             console.error('Error getting current location:', error);
             // Handle location errors gracefully (e.g., display an error message)
@@ -166,11 +170,11 @@ function radians(degrees) {
 function estimateZoomLevel(distanceInKm) {
     switch (true) {
         case distanceInKm < 1:
-            return 14; // Very close zoom (e.g., building level)
+            return 15; // Very close zoom (e.g., building level)
         case distanceInKm < 5:
-            return 12; // Close zoom (e.g., street level)
+            return 14; // Close zoom (e.g., street level)
         case distanceInKm < 10:
-            return 10; // Town/city level
+            return 11; // Town/city level
         case distanceInKm < 25:
             return 8; // Regional area
         case distanceInKm < 50:
