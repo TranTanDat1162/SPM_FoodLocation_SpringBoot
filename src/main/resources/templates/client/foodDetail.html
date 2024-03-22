@@ -49,7 +49,7 @@
 <!-- Blog Start -->
 <div class="container-fluid vesitable py-5">
     <div class="container py-5">
-        <h2 class="my-3 alert-link">Các món khác trong cửa hàng</h2>
+        <h2 class="my-3 alert-link">Các món ăn của các cửa hàng khác</h2>
         <div class="owl-carousel vegetable-carousel justify-content-center">
             <!-- Loop through each food item -->
             <div th:each="food : ${foods}" class="border border-primary rounded position-relative vesitable-item">
@@ -64,7 +64,7 @@
                     <h4 th:text="${food.foodName}">Food Name</h4>
                     <p th:text="${food.description}">Description</p>
                     <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0" th:text="'$' + ${food.price}">Price</p>
+                        <p class="text-dark fs-5 fw-bold mb-0" th:text="${food.price} + ' đồng'">Price</p>
                         <a th:href="@{'/food/' + ${food.getSlug()}}" class="btn btn-outline-primary">
                             <i class="fas fa-location-arrow me-2"></i> Xem chi tiết
                         </a>
