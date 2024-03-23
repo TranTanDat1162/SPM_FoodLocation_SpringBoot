@@ -25,36 +25,58 @@
 
                 </div>
             </div>
-            <div class="col-lg-7 d-flex">
-                <div class="card w-100">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <!-- Sử dụng Thymeleaf để hiển thị tên nhà hàng -->
-                        <h4 class="my-2 py-2" th:text="${restaurant.getRestaurantName()}">Tên Restaurant</h4>
-                        <!-- Sử dụng Thymeleaf để hiển thị địa chỉ -->
-                        <p th:text="'Địa chỉ: ' + ${restaurant.getAddress()}">Địa chỉ: xxx</p>
-                        <div class="d-flex align-items-center">
-                            <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = ${restaurant.getTotalRating()})}"></div>
+                <div class="col-lg-7 d-flex">
+                    <div class="card w-100">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <!-- Sử dụng Thymeleaf để hiển thị tên nhà hàng -->
+                            <h4 class="my-2 py-2" th:text="${restaurant.getRestaurantName()}">Tên Restaurant</h4>
+                            <!-- Sử dụng Thymeleaf để hiển thị địa chỉ -->
+                            <p th:text="'Địa chỉ: ' + ${restaurant.getAddress()}">Địa chỉ: xxx</p>
+                            <div class="d-flex align-items-center">
+                                <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = ${restaurant.getTotalRating()})}"></div>
 
-                            <span class="badge bg-warning" th:text="${restaurant.getTotalRating()}"></span>
+                                <span class="badge bg-warning" th:text="${restaurant.getTotalRating()}"></span>
+                            </div>
+                            <button style="margin-top: 2%" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalScrollable">
+                                Xem Rating
+                            </button>
+                            <div th:insert="~{client/fragments/rating_list_restaurant :: list(listValue = ${ratingList})}"></div>
+                            <!-- Sử dụng Thymeleaf để hiển thị giờ mở cửa và đóng cửa -->
+                            <p style="margin-top: 2%" th:text="'Giờ mở cửa: ' + ${restaurant.getOpenTime()} + ' Giờ đóng cửa: ' + ${restaurant.getCloseTime()}">Giờ mở cửa: xxx Giờ đóng cửa: xxx</p>
+                                                   <!-- Sử dụng Thymeleaf để hiển thị mô tả nhà hàng -->
+                            <p class="my-3 content-res" th:text="${restaurant.getDescription()}">
+                                If you would like to discuss anything related to payment, account, licensing,
+                                partnerships, or have pre-sales questions, you’re at the right place.
+                            </p>
+
+                            <!-- Nếu người dùng đã đăng nhập -->
+                            <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                <button style="margin-top: 2%; width: 100%" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRatingModal">
+                                    Thêm đánh giá
+                                </button>
+                                <div th:insert="~{client/ratingRestaurant/rating_form :: ratingForm(restaurantId= ${restaurantId})}"></div>
+                            </div>
+                            <!-- Nếu người dùng chưa đăng nhập -->
+                            <div th:unless="${#authorization.expression('isAuthenticated()')}">
+                                <!-- Bất kỳ thông báo hoặc hành động nào bạn muốn thực hiện khi người dùng chưa đăng nhập -->
+                            </div>
+
                         </div>
-                        <button style="margin-top: 2%" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalScrollable">
-                            Xem Rating
-                        </button>
-                        <div th:insert="~{client/fragments/rating_list :: list(listValue = ${ratingList})}"></div>
-                        <!-- Sử dụng Thymeleaf để hiển thị giờ mở cửa và đóng cửa -->
-                        <p style="margin-top: 2%" th:text="'Giờ mở cửa: ' + ${restaurant.getOpenTime()} + ' Giờ đóng cửa: ' + ${restaurant.getCloseTime()}">Giờ mở cửa: xxx Giờ đóng cửa: xxx</p>
-                                               <!-- Sử dụng Thymeleaf để hiển thị mô tả nhà hàng -->
-                        <p class="my-3 content-res" th:text="${restaurant.getDescription()}">
-                            If you would like to discuss anything related to payment, account, licensing,
-                            partnerships, or have pre-sales questions, you’re at the right place.
-                        </p>
                     </div>
                 </div>
-            </div>
             <!-- Kết thúc Thymeleaf iteration -->
         </div>
     </div>
 </div>
+
+<!-- Back button -->
+<a style="margin-left: 8%" href="javascript:void(0)" onclick="goBack()" class="btn-click"><< Quay lại</a>
+
+<script>
+    function goBack() {
+        window.history.go(-1); // This navigates back one step without resubmitting the form
+    }
+</script>
 
 <!-- List Restaurant End -->
 

@@ -115,4 +115,7 @@ public class FoodService {
     public Optional<Food> findBySlug(String slug) {
         return Optional.ofNullable(iFoodRepository.findBySlug(slug));
     }
+    public String findSlugById(Long foodId) {
+        return iFoodRepository.findSlugById(foodId);
+    }
 }

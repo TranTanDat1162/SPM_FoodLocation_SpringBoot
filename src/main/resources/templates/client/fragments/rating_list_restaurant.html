@@ -18,13 +18,18 @@
                     <div class="border border-primary rounded bg-light p-1 m-1">
                         <div class="row d-flex">
                             <div class="col-3 d-flex justify-content-center align-items-center">
-                                <img th:src="${rating.userAvatar}" class="rounded-circle" alt="" width="80"
-                                     height="80">
+                                <!-- Kiểm tra nếu có avatar -->
+                                <th:block th:if="${rating.userAvatar != null}">
+                                    <img th:src="'/' + ${rating.userAvatar}" class="rounded-circle" alt="" width="80" height="80">
+                                </th:block>
+                                <!-- Kiểm tra nếu không có avatar -->
+                                <th:block th:unless="${rating.userAvatar != null}">
+                                    <img src="/client/img/avatar.png" class="rounded-circle" alt="" width="80" height="80">
+                                </th:block>
                             </div>
                             <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
                                 <div class="d-flex">
-                                    <span class="h5" th:text="${rating.userFullName}"></span> -
-                                    <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = ${rating.rateStar})}"></span>
+                                    <span class="h5" th:text="${rating.userFullName}"></span>
                                 </div>
                                 <p th:text="${rating.content}"></p>
                             </div>

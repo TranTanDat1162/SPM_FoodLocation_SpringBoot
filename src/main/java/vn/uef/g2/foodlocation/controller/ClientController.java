@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.uef.g2.foodlocation.domain.dto.RatingFoodDto;
+import vn.uef.g2.foodlocation.domain.dto.RatingRestaurantDto;
 import vn.uef.g2.foodlocation.domain.dto.RestaurantDto;
 import vn.uef.g2.foodlocation.domain.entity.Food;
 import vn.uef.g2.foodlocation.domain.entity.Restaurant;
 import vn.uef.g2.foodlocation.service.FoodService;
+import vn.uef.g2.foodlocation.service.RatingFoodService;
+import vn.uef.g2.foodlocation.service.RatingRestaurantService;
 import vn.uef.g2.foodlocation.service.RestaurantService;
 
 import java.util.ArrayList;
@@ -29,6 +33,8 @@ import java.util.stream.Collectors;
 public class ClientController {
     private final RestaurantService restaurantService;
     private final FoodService foodService;
+    private final RatingRestaurantService ratingRestaurantService;
+    private final RatingFoodService ratingFoodService;
 
     @GetMapping(value = {"", "/"})
     public String home(Model model) {
@@ -36,6 +42,8 @@ public class ClientController {
         List<Food> foodList = foodService.findAll();
         model.addAttribute("restaurants", restaurants);
         model.addAttribute("foods", foodList);
+        List<RatingRestaurantDto> ratingList= ratingRestaurantService.findAll();
+        model.addAttribute("ratings", ratingList);
         return "client/index";
     }
 
@@ -45,17 +53,10 @@ public class ClientController {
         Optional<Restaurant> restaurant = restaurantService.findBySlug(slug);
         List<Food> foodListByRestaurant = foodService.findListFoodByRestaurantId(restaurant.get().getId());
 
-//        List<RatingRestaurantDto> ratingList = ratingRestaurantService.getRatingsByRestaurantId(restaurant.get().getId());
-//        Double ratingValue = ratingRestaurantService.calculateAverageRatingByRestaurantId(restaurant.get().getId());
-//        long countRating=ratingRestaurantService.countRating(restaurant.get().getId());
+        List<RatingRestaurantDto> ratingList = ratingRestaurantService.getRatingsByRestaurantId(restaurant.get().getId());
 
         model.addAttribute("restaurantId", restaurant.get().getId());
-//        model.addAttribute("ratingList", ratingList);
-//        model.addAttribute("ratingValue", ratingValue);
-//        if(ratingValue == null) {
-//            model.addAttribute("ratingValue", 0);
-//        }
-//        model.addAttribute("countRating", countRating);
+        model.addAttribute("ratingList", ratingList);
 
         model.addAttribute("restaurant", restaurant.get());
         model.addAttribute("foodList", foodListByRestaurant);
@@ -66,18 +67,18 @@ public class ClientController {
         Optional<Food> food = foodService.findBySlug(slug);
         List<Food> foodList = foodService.findAll();
 
-//        List<RatingFoodDto> ratingList = ratingFoodService.getRatingsByFoodId(food.get().getId());
-//        Double ratingValue = ratingFoodService.calculateAverageRatingByFoodId(food.get().getId());
-//        long countRating=ratingFoodService.countRating(food.get().getId());
+        List<RatingFoodDto> ratingList = ratingFoodService.getRatingsByFoodId(food.get().getId());
+        Double ratingValue = ratingFoodService.calculateAverageRatingByFoodId(food.get().getId());
+        long countRating=ratingFoodService.countRating(food.get().getId());
 
         model.addAttribute("foodId", food.get().getId());
         model.addAttribute("foods", foodList);
-//        model.addAttribute("ratingList", ratingList);
-//        model.addAttribute("ratingValue", ratingValue);
-//        if(ratingValue == null) {
-//            model.addAttribute("ratingValue", 0);
-//        }
-//        model.addAttribute("countRating", countRating);
+        model.addAttribute("ratingList", ratingList);
+        model.addAttribute("ratingValue", ratingValue);
+        if(ratingValue == null) {
+            model.addAttribute("ratingValue", 0);
+        }
+        model.addAttribute("countRating", countRating);
         model.addAttribute("food", food.get());
         return "client/foodDetail";
     }

@@ -38,6 +38,10 @@
                 <div class="vesitable-img">
                     <img th:src="@{'/' + ${food.getImage()} }" class="img-fluid w-100 rounded-top" alt="">
                 </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    <span th:text="${food.getRestaurant().getRestaurantName()}">Category</span>
+                </div>
                 <div class="p-4 rounded-bottom bg-white">
                     <h4 th:text="${food.getFoodName}">Giò heo phỉ thuý</h4>
                     <p th:text="${food.getDescription}">Cắt phỉ thuý ra làm giò heo. @@.</p>
@@ -54,6 +58,39 @@
     </div>
 </div>
 <!-- Foods End -->
+
+<!-- One Product Start-->
+<div class="container-fluid banner hero-header bg-gray my-5">
+    <div class="container py-5">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <div class="py-4 text-white">
+                    <h3 class="display-2 text-white">Tên món ăn</h3>
+                    <p class="fw-normal display-3 mb-4">của nhà hàng: </p>
+                    <p class="mb-4">Thông tin món ăn. Món ăn này được bỏ tiền ra quảng cáo.</p>
+                    <p class="fw-bold m-3 display-3 text-white">$4.99</p>
+                    <a href="#"
+                       class="banner-btn btn border-2 border-white rounded-pill py-3 px-5 text-white">
+                        <i class="fas fa-location-arrow me-2"></i>
+                        Xem chi tiết</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="/client/img/sliders/1.webp" class="img-fluid w-100 rounded" alt="">
+                    <div class="d-flex align-items-center justify-content-center card icon-card rounded-circle text-center mx-2 position-absolute"
+                         style="top: 5px; left: 5px;">
+                        <div class="card-body alert-link py-4 text-warning"><i class="fas fa-star"
+                                                                               style="font-size: 30px"></i>
+                            <p class="icon-name text-capitalize text-truncate mb-0">Editor picker</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- One Product End -->
 
 <!-- List Restaurant Start -->
 <div class="container-fluid vesitable py-5">
@@ -86,42 +123,39 @@
 
 
 <!--&lt;!&ndash; Rating Start &ndash;&gt;-->
-<!--<div th:if="${ratings}" class="container-fluid testimonial py-5">-->
-<!--    <div class="container py-5">-->
-<!--        <div class="testimonial-header text-center">-->
-<!--            <h4 class="text-primary">Khách hàng</h4>-->
-<!--            <h1 class="display-5 mb-5 text-dark">Khách hàng với chúng tôi!</h1>-->
-<!--        </div>-->
-<!--        <div class="owl-carousel testimonial-carousel">-->
-<!--            &lt;!&ndash; 1 &ndash;&gt;-->
-<!--            <th:block th:each="item : ${ratings}">-->
-<!--                <div class="testimonial-item img-border-radius bg-light rounded p-4">-->
-<!--                    <div class="position-relative">-->
-<!--                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute"-->
-<!--                           style="bottom: 30px; right: 0;"></i>-->
-<!--                        <div class="mb-4 pb-4 border-bottom border-secondary">-->
-<!--                            <p class="mb-0" th:text="${item.content}"> content-->
-<!--                            </p>-->
-<!--                        </div>-->
-<!--                        <div class="d-flex align-items-center flex-nowrap">-->
-<!--                            <div class="bg-secondary rounded">-->
-<!--                                <img th:src="${item.userAvatar}" class="img-fluid rounded"-->
-<!--                                     style="width: 100px; height: 100px;" alt="">-->
-<!--                            </div>-->
-<!--                            <div class="ms-4 d-block">-->
-<!--                                <h4 class="text-dark" th:text="${item.userFullName}">Client Name</h4>-->
-<!--                                <p class="m-0 pb-3" th:text="${item.restaurantName}">Ở Food nào</p>-->
-<!--                                <div class="d-flex pe-5">-->
-<!--                                    <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = ${item.rateStar})}"></span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </th:block>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<div th:if="${ratings}" class="container-fluid testimonial py-5">
+    <div class="container py-5">
+        <div class="testimonial-header text-center">
+            <h4 class="text-primary">Khách hàng</h4>
+            <h1 class="display-5 mb-5 text-dark">Khách hàng với chúng tôi!</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel">
+            <!-- 1 -->
+            <th:block th:each="item : ${ratings}">
+                <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                    <div class="position-relative">
+                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
+                           style="bottom: 30px; right: 0;"></i>
+                        <div class="mb-4 pb-4 border-bottom border-secondary">
+                            <p class="mb-0" th:text="${item.content}"> content
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center flex-nowrap">
+                            <div class="bg-secondary rounded">
+                                <img th:src="${item.userAvatar}" class="img-fluid rounded"
+                                     style="width: 100px; height: 100px;" alt="">
+                            </div>
+                            <div class="ms-4 d-block">
+                                <h4 class="text-dark" th:text="${item.userFullName}">Client Name</h4>
+                                <p class="m-0 pb-3" th:text="${item.restaurantName}">Ở Food nào</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
 <!--&lt;!&ndash; Rating End &ndash;&gt;-->
 
 <!-- Footer Start -->

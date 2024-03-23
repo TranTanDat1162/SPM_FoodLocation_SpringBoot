@@ -17,7 +17,7 @@
     <div class="container py-5">
         <div class="row gy-4 d-flex align-items-stretch">
             <div class="col-lg-5 d-flex">
-                <div class="restaurant-img-box position-relative border p-2 d-flex flex-column justify-content-between">
+                <div class="restaurant-img-box position-relative border p-2 d-flex flex-column justify-content-between w-100">
                     <!-- Use the 'image' property of the 'food' object -->
                     <img th:src="@{'/' + ${food.getImage()} }" alt="food name" class="res-img w-100 scaleX-n1-rtl">
                 </div>
@@ -28,14 +28,40 @@
                         <!-- Use the 'foodName' property of the 'food' object -->
                         <h4 class="my-2 py-2" th:text="${food.getFoodName()}">Tên món ăn</h4>
 
+                        <div class="d-flex align-items-center">
+                            <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = ${ratingValue})}"></div>
+
+                            <span class="badge bg-warning" th:text="${countRating}"></span>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalScrollable">
+                            Xem Rating
+                        </button>
+
+                        <!-- Render the list of ratings -->
+                        <div th:insert="~{client/fragments/rating_list_food :: list(listValue = ${ratingList})}"></div>
+
                         <!-- Use the 'timeWait', 'closingTime', and 'price' properties of the 'food' object -->
                         <p th:text="'Thời gian đợi: ' + ${food.getTimeWait()} + ' phút'">xxx</p>
 
                         <p th:text="'Giá: ' + ${food.getPrice()} + ' đồng'">xxx</p>
 
+                        <a th:href="@{'/restaurant/' + ${food.getRestaurant().getSlug()}}" class="btn btn-outline-primary"><i class="fas fa-location-arrow me-2"></i> Xem chi tiết nhà hàng</a>
+
                         <!-- Use the 'description' property of the 'food' object -->
                         <p class="my-3 content-res" th:text="${food.getDescription()}">
-                        <div th:insert="~{client/fragments/rating_list :: list(listValue = ${ratingList})}"></div>
+                        <div th:insert="~{client/fragments/rating_list_food :: list(listValue = ${ratingList})}"></div>
+
+                        <!-- Nếu người dùng đã đăng nhập -->
+                        <div th:if="${#authorization.expression('isAuthenticated()')}">
+                            <button style="margin-top: 2%; width: 100%" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRatingModal">
+                                Thêm đánh giá
+                            </button>
+                            <div th:insert="~{client/ratingFood/rating_form :: ratingForm(foodId= ${foodId})}"></div>
+                        </div>
+                        <!-- Nếu người dùng chưa đăng nhập -->
+                        <div th:unless="${#authorization.expression('isAuthenticated()')}">
+                            <!-- Bất kỳ thông báo hoặc hành động nào bạn muốn thực hiện khi người dùng chưa đăng nhập -->
+                        </div>
 
                     </div>
                 </div>
@@ -45,6 +71,14 @@
 </div>
 <!-- Food Detail End -->
 
+<!-- Back button -->
+<a style="margin-left: 8%" href="javascript:void(0)" onclick="goBack()" class="btn-click"><< Quay lại</a>
+
+<script>
+    function goBack() {
+        window.history.go(-1); // This navigates back one step without resubmitting the form
+    }
+</script>
 
 <!-- Blog Start -->
 <div class="container-fluid vesitable py-5">

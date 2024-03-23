@@ -1,0 +1,27 @@
+<div th:fragment="ratingForm">
+    <!-- Modal -->
+    <div class="modal fade" id="addRatingModal" tabindex="-1" aria-labelledby="addRatingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRatingModalLabel">Thêm đánh giá</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form Add rating -->
+                    <form th:action="@{/rating-restaurant/add}" method="post">
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Nội dung</label>
+                            <input type="text" class="form-control" id="content" name="content" required>
+                        </div>
+                        <!-- pass restaurantId in value -->
+                        <input type="hidden" name="restaurantId" th:value="${restaurantId}">
+                        <div class="mb-3 rating">
+                            <button type="submit" class="btn btn-primary">Thêm đánh giá</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

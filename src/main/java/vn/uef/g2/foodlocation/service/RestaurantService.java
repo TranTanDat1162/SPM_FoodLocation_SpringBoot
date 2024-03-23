@@ -122,4 +122,8 @@ public class RestaurantService {
     public Set<Restaurant> findAllRestaurantsWithFoodName(String foodName) {
         return restaurantRepository.FindAllWithFoodNameQuery(foodName);
     }
+
+    public String findSlugById(Long restaurantId) {
+        return restaurantRepository.findSlugById(restaurantId);
+    }
 }

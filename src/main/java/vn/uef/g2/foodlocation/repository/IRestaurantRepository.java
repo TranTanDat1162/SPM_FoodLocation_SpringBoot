@@ -20,11 +20,13 @@ public interface IRestaurantRepository extends JpaRepository<Restaurant, Long> {
     Restaurant findRestaurantById(Long id);
     Optional<Restaurant> findByRestaurantName(String restaurantName);
 
-
     List<Restaurant> findByRestaurantNameContaining(String restaurantName);
     List<Restaurant> findExactByRestaurantName(String restaurantName);
 
     Restaurant findBySlug(String slug);
+
+    @Query("SELECT r.slug FROM Restaurant r where r.id = :id")
+    String findSlugById(@Param("id") Long restaurantId);
 
     //List<Restaurant> findAll();
     
