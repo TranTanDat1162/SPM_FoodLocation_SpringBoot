@@ -36,6 +36,9 @@ public class Food {
     @Column(name = "time_wait")
     private int timeWait;
 
+    @Column(name = "is_recommended")
+    private Boolean isRecommended;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "restaurant_id")
@@ -47,12 +50,13 @@ public class Food {
     public Food() {
     }
 
-    public Food(String foodName, String slug, String description, int price, String image, int timeWait) {
+    public Food(String foodName, String slug, String description, int price, String image, int timeWait, boolean isRecommended) {
         this.foodName = foodName;
         this.slug = slug;
         this.description = description;
         this.price = price;
         this.image = image;
         this.timeWait = timeWait;
+        this.isRecommended = isRecommended;
     }
 }

@@ -51,6 +51,7 @@
                                     <th>Price</th>
                                     <th>Time Wait</th>
                                     <th>Avatar</th>
+                                    <th>Is Recommended</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -68,6 +69,8 @@
                                              class="img-fluid"
                                              style="width: auto; height: 50px;"
                                         />
+                                    </td>
+                                    <td th:text="${food.getIsRecommended()}">
                                     </td>
                                     <td>
                                         <a class="btn btn-sm btn-primary"

@@ -80,10 +80,37 @@
 
 <!-- List Restaurant End -->
 
+<!-- Food Recommended -->
+<div class="container-fluid vesitable py-5">
+    <div class="container py-5">
+        <h2 class="my-3 alert-link">Các món ăn recommended</h2>
+        <div class="owl-carousel vegetable-carousel justify-content-center">
+            <!-- Loop through each food item -->
+            <div th:each="food : ${foodList}" class="border border-primary rounded position-relative vesitable-item" th:if="${food.getIsRecommended()}">
+                <div class="vesitable-img">
+                    <img th:src="@{'/' + ${food.getImage()}}" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4 th:text="${food.foodName}">Food Name</h4>
+                    <p th:text="${food.description}">Description</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0" th:text="${food.price} + ' đồng'">Price</p>
+                        <a th:href="@{'/food/' + ${food.getSlug()}}" class="btn btn-outline-primary">
+                            <i class="fas fa-location-arrow me-2"></i> Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- End loop -->
+        </div>
+    </div>
+</div>
+<!-- Food Recommended -->
+
 <!-- Food Start -->
 <div class="container-fluid vesitable py-5">
     <div class="container py-5">
-        <h2 class="my-3 alert-link">Các món ăn trong nhà hàng</h2>
+        <h2 class="my-3 alert-link">Thực đơn của quán</h2>
         <div class="owl-carousel vegetable-carousel justify-content-center">
             <!-- Loop through each food item -->
             <div th:each="food : ${foodList}" class="border border-primary rounded position-relative vesitable-item">

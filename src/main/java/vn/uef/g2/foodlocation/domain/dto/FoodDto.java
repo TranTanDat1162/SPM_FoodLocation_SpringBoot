@@ -5,9 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
+@Getter
+@Setter
 public class FoodDto {
     private Long id;
 
@@ -29,6 +33,8 @@ public class FoodDto {
 
     @Min(value= 0, message="Waiting time must be positive number")
     private int timeWait;
+
+    private Boolean isRecommended;
 
     @NotNull(message = "Choose restaurant !")
     private Long restaurantId;

@@ -123,7 +123,7 @@
                                             <label for="formFile" class="form-label">Food Image</label>
                                             <input class="form-control" type="file" id="formFile" name="imageFile"
                                                    accept="image/*"
-                                                   onchange="loadFile(event)" required>
+                                                   onchange="loadFile(event)">
                                             <div
                                                     th:class="${#fields.hasErrors('imageFile')}? 'invalid-feedback d-block' : 'invalid-feedback'"
                                                     th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}">
@@ -135,6 +135,12 @@
                                         <!-- Previous Image -->
                                         <div class="mb-3">
                                             <img id="preview-image-before-upload" class="rounded mx-auto d-block" />
+                                        </div>
+
+                                        <div class="mb-3 form-group">
+                                            <input class="form-check-input" type="checkbox" id="isRecommended" name="isRecommended"
+                                                   th:checked="${foodDtoEdit.getIsRecommended()}">
+                                            <label for="isRecommended">Recommend this food</label>
                                         </div>
 
                                         <!-- Add hidden form field to handle update -->

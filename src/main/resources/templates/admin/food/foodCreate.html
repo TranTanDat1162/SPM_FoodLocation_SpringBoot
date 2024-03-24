@@ -136,6 +136,13 @@
                                             <img id="preview-image-before-upload" class="rounded mx-auto d-block" />
                                         </div>
 
+                                        <div class="mb-3 form-group">
+                                            <input class="form-check-input" type="checkbox" id="isRecommended" name="isRecommended"
+                                                   th:checked="${foodDTO.getIsRecommended()}">
+                                            <label for="isRecommended">Recommend this food</label>
+                                        </div>
+
+
                                         <!-- Add hidden form field to handle update -->
                                         <input type="hidden" th:field="*{id}"/>
 

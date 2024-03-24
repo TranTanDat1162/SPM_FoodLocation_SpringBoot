@@ -25,6 +25,7 @@ public class FoodService {
     private final IRestaurantRepository iRestaurantRepository;
     public void add(@Valid FoodDto foodDto) throws FileUploadException {
         Food food = new Food();
+        food.setIsRecommended(foodDto.getIsRecommended());
         food.setFoodName(foodDto.getFoodName());
         food.setDescription(foodDto.getDescription());
         food.setPrice(foodDto.getPrice());
@@ -60,6 +61,7 @@ public class FoodService {
         Optional<Food> optionalFood = iFoodRepository.findById(foodId);
         if (optionalFood.isPresent()) {
             Food food = optionalFood.get();
+            food.setIsRecommended(foodDto.getIsRecommended());
             food.setFoodName(foodDto.getFoodName());
             food.setDescription(foodDto.getDescription());
             food.setPrice(foodDto.getPrice());
@@ -86,8 +88,8 @@ public class FoodService {
         return iFoodRepository.findAll();
     }
 
-    public Optional<Food> findOne(Long foodId) {
-        return iFoodRepository.findById(foodId);
+    public Food findOne(Long foodId) {
+        return iFoodRepository.findFoodById(foodId);
     }
 
     public Restaurant findRestaurantFromFood(Long foodId) {

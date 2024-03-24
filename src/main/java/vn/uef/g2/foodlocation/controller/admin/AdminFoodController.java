@@ -36,6 +36,7 @@ public class AdminFoodController {
 
     @GetMapping(value ="/create")
     public String showFoodCreate(Model model) {
+        // Show drop down list restaurants to create food
         List<Restaurant> restaurantList = restaurantService.findRestaurants();
         model.addAttribute("restaurants", restaurantList);
 
@@ -72,10 +73,7 @@ public class AdminFoodController {
         model.addAttribute("restaurants", restaurantList);
 
         // Lấy thông tin nhà hàng cần cập nhật từ service
-        Food food = foodService.findOne(foodId)
-                .orElseThrow(() -> new RestaurantService
-                        .RestaurantNotFoundException("Food not found with id: "
-                        + foodId));
+        Food food = foodService.findOne(foodId);
 
         // Chuyển đổi đối tượng Restaurant thành đối tượng RestaurantForm để hiển thị trong form
         FoodDto foodForm = new FoodDto();
