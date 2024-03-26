@@ -185,4 +185,8 @@ public class RestaurantService {
         }
         return null;
     }
+
+    public void addToFavorite(Long id){
+
+    }
 }

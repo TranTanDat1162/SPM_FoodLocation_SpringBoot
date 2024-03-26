@@ -9,6 +9,7 @@ import vn.uef.g2.foodlocation.domain.dto.UserDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -41,6 +42,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<RatingRestaurant> listRatingRestaurant = new ArrayList<>();
+
+    @OneToMany(mappedBy = "favorite_restaurant_id", cascade = CascadeType.ALL)
+    private List<FavoriteRestaurant> listFavoriteRestaurant = new ArrayList<>();
 
     public UserDto convertUserDto(){
         UserDto userDto = new UserDto();

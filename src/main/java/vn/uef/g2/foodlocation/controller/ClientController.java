@@ -128,4 +128,9 @@ public class ClientController {
 
         return "client/restaurantList";
     }
+    @PostMapping(value = {"/save"})
+    public String addFavorite(@RequestParam Long resId) {
+
+        return null;
+    }
 }
