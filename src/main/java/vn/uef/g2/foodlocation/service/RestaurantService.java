@@ -41,6 +41,8 @@ public class RestaurantService {
         res.setRestaurantName(r.getRestaurantName());
         res.setTotalRating(r.getTotalRating());
         res.setAddress(r.getAddress());
+        res.setPhone(r.getPhone());
+        res.setParkingInfo(r.getParking());
         res.setLatitude(r.getLatitude());
         res.setLongitude(r.getLongitude());
         res.setDescription(r.getDescription());
@@ -50,7 +52,6 @@ public class RestaurantService {
 
         restaurantRepository.save(res);
     }
-
 
     private String createSlug(String restaurantName) {
         while (true) {
@@ -75,7 +76,9 @@ public class RestaurantService {
         // Cập nhật thông tin của nhà hàng
         existingRestaurant.setRestaurantName(updatedRestaurantForm.getRestaurantName());
         existingRestaurant.setAddress(updatedRestaurantForm.getAddress());
+        existingRestaurant.setPhone(updatedRestaurantForm.getPhone());
         existingRestaurant.setLongitude(updatedRestaurantForm.getLongitude());
+        existingRestaurant.setParkingInfo(updatedRestaurantForm.getParking());
         existingRestaurant.setLatitude(updatedRestaurantForm.getLatitude());
         existingRestaurant.setDescription(updatedRestaurantForm.getDescription());
         existingRestaurant.setSlug(createSlug(updatedRestaurantForm.getRestaurantName()));

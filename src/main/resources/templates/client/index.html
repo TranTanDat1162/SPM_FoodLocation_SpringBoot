@@ -76,7 +76,8 @@
                         <div class="col-6">
                             <a th:href="@{'/restaurant/' + ${restaurant.getSlug()}}" class="h5" th:text="${restaurant.getRestaurantName()}">Nhà hàng 1</a>
                             <!-- Thymeleaf expression to display restaurant description -->
-                            <p th:text="${restaurant.getDescription()}">Giới thiệu ngắn</p>
+                            <p th:text="${restaurant.getPhone()}">Giới thiệu ngắn</p>
+                            <p th:text="'Có chỗ đậu xe: ' + ${restaurant.getParkingInfo() ?: 'không'}"></p>
                             <a th:href="@{'/restaurant/' + ${restaurant.getSlug()}}" class="btn btn-outline-primary"><i class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
                         </div>
                     </div>

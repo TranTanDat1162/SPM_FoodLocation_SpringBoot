@@ -88,6 +88,14 @@
                                                       th:field="*{description}"></textarea>
                                         </div>
                                         <div class="mb-3">
+                                            <label class="form-label" for="formContactNum">Contact</label>
+                                            <input class="form-control" type="text" id="formContactNum" th:field="*{phone}" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formParkingInfo">Acceptable vehicles</label>
+                                            <input class="form-control" type="text" id="formParkingInfo" th:field="*{parking}" />
+                                        </div>
+                                        <div class="mb-3">
                                             <label class="form-label" for="formLatitude">Latitude*</label>
                                             <input class="form-control" type="text" id="formLatitude" th:field="*{latitude}" />
                                         </div>

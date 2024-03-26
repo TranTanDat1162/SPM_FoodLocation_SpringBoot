@@ -67,6 +67,12 @@ public class Restaurant {
     @Column(name = "total_rating")
     private Double totalRating;
 
+    @Column(name = "contact_no")
+    private String phone;
+
+    @Column(name = "parking_info")
+    private String parkingInfo;
+
     public Restaurant() {
     }
 
@@ -77,6 +83,8 @@ public class Restaurant {
                       String latitude,
                       String longitude,
                       String image,
+                      String phone,
+                      String parkingInfo,
                       LocalTime openTime,
                       LocalTime closeTime,
                       boolean isActive,
@@ -89,6 +97,8 @@ public class Restaurant {
         this.latitude = latitude;
         this.longitude = longitude;
         this.image = image;
+        this.phone = phone;
+        this.parkingInfo = parkingInfo;
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.isActive = isActive;

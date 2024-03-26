@@ -431,6 +431,7 @@ function restarantInfoParse(place){
     const formDescription = document.getElementById("formDescription");
     const formOpenTime = document.getElementById("formOpenTime");
     const formCloseTime = document.getElementById("formCloseTime");
+    const formContactNum = document.getElementById("formContactNum");
 
 
     // Fill in the form fields with place details
@@ -445,5 +446,7 @@ function restarantInfoParse(place){
 
     formOpenTime.value = extractOpeningHours(place.opening_hours);
     formCloseTime.value = extractClosingHours(place.opening_hours);
+
+    formContactNum.value = place.formatted_phone_number;
 
 }

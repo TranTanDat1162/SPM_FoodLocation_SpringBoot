@@ -18,6 +18,8 @@ public class RestaurantDto {
     private String latitude;
     @NotNull
     private String longitude;
+    private String phone;
+    private String parking;
     private Double totalRating;
     private String description;
     private String openTime;
