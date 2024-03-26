@@ -10,28 +10,9 @@
 <div th:insert="~{client/fragments/slider_index :: slider}"></div>
 <!-- Hero Slider End -->
 
-<!-- Map Start-->
-<div class="h-px-700" id="map">
-    <button id="pan_to_current"
-            class="btn btn-primary border-2 border-primary position-absolute rounded-pill text-white"
-            style="margin-top: 10px ;left: 40%; right:40%"
-    >
-        Pan to Current Location</button>
-<!--    <iframe-->
-<!--            width="100%"-->
-<!--            height="100%"-->
-<!--            frameborder="0" style="border:0"-->
-<!--            referrerpolicy="no-referrer-when-downgrade"-->
-<!--            src="https://www.google.com/maps/embed/v1/search?key=AIzaSyA5hp-jSwTRsJQOsmed-sZHF7kOX1jl_yw&q=địa+điểm+ăn+uống+gần&zoom=15"-->
-<!--            allowfullscreen>-->
-<!--    </iframe>-->
-</div>
-<!-- Map End-->
-
 <!-- Foods Start-->
 <div class="container-fluid vesitable py-5">
-    <div class="container py-5">
-        <h2 class="my-3 alert-link">Oh món lạ ...</h2>
+    <div class="container">
         <div class="owl-carousel vegetable-carousel justify-content-center">
             <!-- Loop through the list of foods -->
             <div th:each="food : ${foods}" class="border border-primary rounded position-relative vesitable-item">
@@ -60,11 +41,10 @@
 <!-- Foods End -->
 
 <!-- List Restaurant Start -->
-<div class="container-fluid vesitable py-5">
-    <div class="container py-5">
+<div class="container-fluid vesitable">
+    <div class="container">
         <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-            <h1 class="display-4">Danh sách nhà hàng</h1>
-            <p>Hãy đến với những nhà hàng nổi tiếng và cùng những món ăn tuyệt vời.</p>
+            <h1 class="display-4">Restaurant List</h1>
         </div>
         <div class="row g-4">
             <!-- Thymeleaf iteration to display restaurants -->
@@ -89,68 +69,15 @@
 <!-- List Restaurant End -->
 
 
-<!--&lt;!&ndash; Rating Start &ndash;&gt;-->
-<div th:if="${ratings}" class="container-fluid testimonial py-5">
-    <div class="container py-5">
-        <div class="testimonial-header text-center">
-            <h4 class="text-primary">Khách hàng</h4>
-            <h1 class="display-5 mb-5 text-dark">Khách hàng với chúng tôi!</h1>
-        </div>
-        <div class="owl-carousel testimonial-carousel">
-            <!-- 1 -->
-            <th:block th:each="item : ${ratings}">
-                <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                    <div class="position-relative">
-                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
-                           style="bottom: 30px; right: 0;"></i>
-                        <div class="mb-4 pb-4 border-bottom border-secondary">
-                            <p class="mb-0" th:text="${item.content}"> content
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center flex-nowrap">
-                            <div class="bg-secondary rounded">
-                                <img th:src="${item.userAvatar}" class="img-fluid rounded"
-                                     style="width: 100px; height: 100px;" alt="">
-                            </div>
-                            <div class="ms-4 d-block">
-                                <h4 class="text-dark" th:text="${item.userFullName}">Client Name</h4>
-                                <p class="m-0 pb-3" th:text="${item.restaurantName}">Ở Food nào</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </th:block>
-        </div>
-    </div>
-</div>
-<!--&lt;!&ndash; Rating End &ndash;&gt;-->
-
 <!-- Footer Start -->
 <div th:replace="~{client/fragments/footer::footer}"></div>
 <div th:replace="~{client/fragments/js::js-insert}"></div>
 <script>
     window.addEventListener("DOMContentLoaded", async function () {
         const restaurantElements = document.querySelectorAll(".col-6[id]");
-        const queriedData = {
-            keyword: document.querySelector('li[data-queried-keyword]')?.dataset?.queriedKeyword,
-            district: document.querySelector('li[data-queried-district]')?.dataset?.queriedDistrict,
-            radius: document.querySelector('li[data-queried-radius]')?.dataset?.queriedRadius
-        };
-
         restaurantElements.forEach(element => {
             generateMapDirectionEmbed(element.id, element.dataset.latitude, element.dataset.longitude);
         });
-
-        if(queriedData) {
-            try {
-                cords = await getCurrentLocation();
-                generateMapEmbed(cords, queriedData.keyword, queriedData.district, queriedData.radius);
-            } catch (error) {
-                console.error('Error getting current location:', error);
-                // Handle location errors gracefully (e.g., display an error message)
-            }
-        }
-
     });
 </script>
 <!-- prettier-ignore -->

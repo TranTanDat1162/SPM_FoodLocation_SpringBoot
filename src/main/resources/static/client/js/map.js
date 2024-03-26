@@ -3,7 +3,7 @@ const options = {
     timeout: 5000,
     maximumAge: 0,
 };
-let map, infoWindow;
+let map, infoWindow,cords;
 //For Client------------------------------------------------
 async function getCurrentLocation(){
     return new Promise((resolve, reject) => {
@@ -58,11 +58,9 @@ async function generateMapEmbed(center, keyword, region, radius) {
 async function innit() {
 
     try {
-        const cords = await getCurrentLocation();
-        generateMapEmbed(cords);
+        cords = await getCurrentLocation();
     } catch (error) {
         console.error('Error getting current location:', error);
-        // Handle location errors gracefully (e.g., display an error message)
     }
 
     const locationButton = document.getElementById("pan_to_current");
@@ -71,11 +69,16 @@ async function innit() {
     const searchedRegion = document.getElementById("district");
     const searchedRadius = document.getElementById("radius");
 
+    const fetchedLat = document.getElementById("currentLat");
+    const fetchedLng = document.getElementById("currentLng");
 
+    const temp = cords.split(",")
+    fetchedLat.value = temp[0];
+    fetchedLng.value = temp[1];
 
     locationButton.addEventListener("click", async () => {
         try {
-            const cords = await getCurrentLocation();
+            cords = await getCurrentLocation();
             generateMapEmbed(cords);
         } catch (error) {
             console.error('Error getting current location:', error);
@@ -171,10 +174,10 @@ function estimateZoomLevel(distanceInKm) {
     switch (true) {
         case distanceInKm < 1:
             return 15; // Very close zoom (e.g., building level)
-        case distanceInKm < 5:
-            return 14; // Close zoom (e.g., street level)
-        case distanceInKm < 10:
-            return 11; // Town/city level
+        case distanceInKm < 4:
+            return 13; // Close zoom (e.g., street level)
+        case distanceInKm < 8:
+            return 12; // Town/city level
         case distanceInKm < 25:
             return 10; // Regional area
         case distanceInKm < 50:

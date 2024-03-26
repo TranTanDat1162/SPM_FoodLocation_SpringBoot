@@ -16,10 +16,7 @@ import vn.uef.g2.foodlocation.domain.dto.RatingRestaurantDto;
 import vn.uef.g2.foodlocation.domain.dto.RestaurantDto;
 import vn.uef.g2.foodlocation.domain.entity.Food;
 import vn.uef.g2.foodlocation.domain.entity.Restaurant;
-import vn.uef.g2.foodlocation.service.FoodService;
-import vn.uef.g2.foodlocation.service.RatingFoodService;
-import vn.uef.g2.foodlocation.service.RatingRestaurantService;
-import vn.uef.g2.foodlocation.service.RestaurantService;
+import vn.uef.g2.foodlocation.service.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,15 +80,31 @@ public class ClientController {
         return "client/foodDetail";
     }
     @GetMapping(value = {"/search"})
-    public String getKeyword(@RequestParam String keyword,String district, String radius, Model model) {
+    public String getKeyword(@RequestParam String keyword,String district,
+                             int radius, String currentLat, String currentLng,
+                             Model model) {
 
-        List<Restaurant> restaurantsByName = restaurantService.findMatchingRestaurant(keyword);
-        Set<Restaurant> restaurantsByFood = restaurantService.findAllRestaurantsWithFoodName(keyword);
-
-        // Merge 2 results
+        // Merge all results
         List<Restaurant> totalRestaurants = new ArrayList<>();
-        totalRestaurants.addAll(restaurantsByFood);
-        totalRestaurants.addAll(restaurantsByName);
+        if (!keyword.isEmpty()) {
+            totalRestaurants.addAll(restaurantService.findMatchingRestaurant(keyword));
+            totalRestaurants.addAll(restaurantService.findAllRestaurantsWithFoodName(keyword));
+        }
+
+        if(!district.isEmpty()){
+            if(totalRestaurants.isEmpty())
+                totalRestaurants.addAll(restaurantService.restaurantsInRegion(district));
+            else
+                totalRestaurants.retainAll(restaurantService.restaurantsInRegion(district));
+        }
+        else{
+            if(totalRestaurants.isEmpty())
+                totalRestaurants.addAll(restaurantService.restaurantsWithinRadius(Double.parseDouble(currentLat),
+                        Double.parseDouble(currentLng), radius));
+            else
+                totalRestaurants.retainAll(restaurantService.restaurantsWithinRadius(Double.parseDouble(currentLat),
+                    Double.parseDouble(currentLng), radius));
+        }
 
         // Filter out all duplicates results
         List<Restaurant> listWithoutDuplicates = totalRestaurants.stream()
@@ -104,9 +117,15 @@ public class ClientController {
                 .flatMap(List::stream) // Flatten individual food lists
                 .collect(Collectors.toList());
 
-        model.addAttribute("foods", foodList);
+        model.addAttribute("queries", new Object() {
+            public final String qkeyword =keyword;
+            public final String qdistrict = district;
+            public final int qradius = radius;
+        });
 
+        model.addAttribute("foods", foodList);
         model.addAttribute("restaurants", listWithoutDuplicates);
-        return "client/index";
+
+        return "client/restaurantList";
     }
 }

@@ -11,11 +11,18 @@
             <div class="col-md-12 col-lg-9">
                 <h4 class="mb-3 text-secondary">Food location</h4>
                 <h1 class="mb-5 display-3 text-primary">Find any restaurants you want to enjoy...</h1>
+                <ul style="display: none">
+                    <li th:attr="data-queried-keyword=${queries?.qkeyword}"></li>
+                    <li th:attr="data-queried-district=${queries?.qdistrict}"></li>
+                    <li th:attr="data-queried-radius=${queries?.qradius}"></li>
+                </ul>
                 <div class="position-relative mx-auto" id="current_loc">
                     <form th:action="@{/search}" method="get" >
                         <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="text"
                                id="query_keyword"
                                placeholder="Find food, restaurants..." name="keyword">
+                        <input type="hidden" id="currentLat" name="currentLat"/>
+                        <input type="hidden" id="currentLng" name="currentLng"/>
                         <select class="form-control border-2 border-secondary w-auto py-3 px-4 rounded-end rounded-pill position-absolute"
                                 id="district" name="district"
                                 style="top: 0; right: 48%;">
@@ -27,11 +34,17 @@
                             <option value="Quận 5">District 5</option>
                             <option value="Quận 6">District 6</option>
                             <option value="Quận 7">District 7</option>
+                            <option value="Tân Bình">Tân Bình</option>
+                            <option value="Bình Tân">Bình Tân</option>
+                            <option value="Bình Thạnh">Bình Thạnh</option>
+                            <option value="Tân Phú">Tân Phú</option>
+                            <option value="Gò Vấp">Gò Vấp</option>
+                            <option value="Phú Nhuận">Phú Nhuận</option>
                         </select>
                         <select class="form-control border-2 rounded-0 border-secondary w-auto py-3 px-4 position-absolute"
                                 id="radius" name="radius"
                                 style="top: 0; right: 35%;">
-                            <option value="">Select Radius</option>
+                            <option value="12">Select Radius</option>
                             <option value="14">5000 m</option>
                             <option value="15">2500 m</option>
                             <option value="16">1200 m</option>

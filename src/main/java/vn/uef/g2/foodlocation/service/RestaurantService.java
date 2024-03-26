@@ -9,11 +9,15 @@ import org.springframework.stereotype.Service;
 import vn.uef.g2.foodlocation.domain.dto.RestaurantDto;
 import vn.uef.g2.foodlocation.domain.entity.Restaurant;
 import vn.uef.g2.foodlocation.repository.IRestaurantRepository;
+import vn.uef.g2.foodlocation.service.imp.IMapService;
 import vn.uef.g2.foodlocation.utility.TitleToSlug;
 import vn.uef.g2.foodlocation.utility.UploadFile;
 
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Transactional
 @Service
@@ -21,6 +25,7 @@ import java.util.*;
 @Slf4j
 public class RestaurantService {
     private final IRestaurantRepository restaurantRepository;
+    private final IMapService mapService;
 
     public void add(@Valid RestaurantDto r) throws FileUploadException {
 
@@ -113,9 +118,6 @@ public class RestaurantService {
     }
 
     public List<Restaurant> findMatchingRestaurant(String name) throws RestaurantNotFoundException{
-        //        if (restaurantList.isEmpty()){
-//            throw new RestaurantNotFoundException("Unable to find matching restaurants");
-//        }
         return restaurantRepository.findByRestaurantNameContaining(name);
     }
     // get all restaurants by food name
@@ -125,5 +127,62 @@ public class RestaurantService {
 
     public String findSlugById(Long restaurantId) {
         return restaurantRepository.findSlugById(restaurantId);
+    }
+
+    public List<Restaurant> restaurantsWithinRadius(double x, double y,int r) {
+
+        // Conversion from Google's zoom level to meters
+        // it's annoying i know
+        Map<Integer, Double> valueMap = new HashMap<>();
+        valueMap.put(12, 10.0);
+        valueMap.put(14, 5.0);
+        valueMap.put(15, 2.5);
+        valueMap.put(16, 1.2);
+        valueMap.put(17, 0.6);
+        valueMap.put(18, 0.3);
+
+        List<Restaurant> nearbyRestarants;
+
+        // Hahaha I learned LinQ when LeetCoding
+        // and look what I found similar >:)
+        // From now on I'm going to abuse this
+        nearbyRestarants = restaurantRepository
+                .findAll()
+                .stream()
+                .filter(res ->
+                    mapService.getDistance(x,y,
+                        Double.valueOf(res.getLatitude()),
+                        Double.valueOf(res.getLongitude())
+                    ) < valueMap.get(r))
+                .collect(toList());
+
+        return nearbyRestarants;
+    }
+
+    public List<Restaurant> restaurantsInRegion(String region) {
+        List<Restaurant> regionalRestaurants;
+
+        regionalRestaurants = restaurantRepository.findAll().stream()
+                .filter( r ->getDistrict(r.getAddress()).equalsIgnoreCase(region))
+                .collect(toList());
+
+        return regionalRestaurants;
+    }
+
+    public String getDistrict(String address) {
+        List<String> districtNames = Arrays.asList(
+                "Quận 1", "Quận 3", "Quận 4", "Quận 5", "Quận 6", "Quận 7",
+                "Quận 8", "Quận 10", "Quận 11", "Quận 12", "Tân Bình",
+                "Bình Tân", "Bình Thạnh", "Tân Phú", "Gò Vấp",
+                "Phú Nhuận"
+        );
+
+        String lowerCaseAddress = address.toLowerCase();
+        for (String districtName : districtNames) {
+            if (lowerCaseAddress.contains(districtName.toLowerCase())) {
+                return districtName;
+            }
+        }
+        return null;
     }
 }
