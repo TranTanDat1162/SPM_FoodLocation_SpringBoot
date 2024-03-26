@@ -45,9 +45,9 @@
                             <!-- Sử dụng Thymeleaf để hiển thị giờ mở cửa và đóng cửa -->
                             <p style="margin-top: 2%" th:text="'Giờ mở cửa: ' + ${restaurant.getOpenTime()} + ' Giờ đóng cửa: ' + ${restaurant.getCloseTime()}">Giờ mở cửa: xxx Giờ đóng cửa: xxx</p>
                                                    <!-- Sử dụng Thymeleaf để hiển thị mô tả nhà hàng -->
-                            <p class="my-3 content-res" th:text="${restaurant.getDescription()}"> </p>
+                            <p class="content-res fw-bolder my-3" th:text="${restaurant.getDescription()}"> </p>
                             <div>
-                                <p class="position-absolute bi-check2-circle" style="right: 50%" th:text="' Có chỗ đậu xe: '+${restaurant.getParkingInfo()}"> </p>
+                                <p class="position-absolute bi-check2-circle" style="right: 3%" th:text="' Có chỗ đậu xe: '+${restaurant.getParkingInfo()}"> </p>
                                 <p class="bi-phone content-res" th:text="' Contact: ' + ${restaurant.getPhone()}"> </p>
                             </div>
 

@@ -42,7 +42,7 @@ public class RestaurantService {
         res.setTotalRating(r.getTotalRating());
         res.setAddress(r.getAddress());
         res.setPhone(r.getPhone());
-        res.setParkingInfo(r.getParking());
+        res.setParkingInfo(r.getParkingInfo());
         res.setLatitude(r.getLatitude());
         res.setLongitude(r.getLongitude());
         res.setDescription(r.getDescription());
@@ -78,7 +78,7 @@ public class RestaurantService {
         existingRestaurant.setAddress(updatedRestaurantForm.getAddress());
         existingRestaurant.setPhone(updatedRestaurantForm.getPhone());
         existingRestaurant.setLongitude(updatedRestaurantForm.getLongitude());
-        existingRestaurant.setParkingInfo(updatedRestaurantForm.getParking());
+        existingRestaurant.setParkingInfo(updatedRestaurantForm.getParkingInfo());
         existingRestaurant.setLatitude(updatedRestaurantForm.getLatitude());
         existingRestaurant.setDescription(updatedRestaurantForm.getDescription());
         existingRestaurant.setSlug(createSlug(updatedRestaurantForm.getRestaurantName()));
@@ -137,7 +137,7 @@ public class RestaurantService {
         // Conversion from Google's zoom level to meters
         // it's annoying i know
         Map<Integer, Double> valueMap = new HashMap<>();
-        valueMap.put(12, 10.0);
+        valueMap.put(12, 1000.0);
         valueMap.put(14, 5.0);
         valueMap.put(15, 2.5);
         valueMap.put(16, 1.2);

@@ -10,6 +10,16 @@
 <div th:insert="~{client/fragments/slider_index :: slider}"></div>
 <!-- Hero Slider End -->
 
+<!-- Map Start-->
+<div class="h-px-700" id="map">
+    <button id="pan_to_current"
+            class="btn btn-primary border-2 border-primary position-absolute rounded-pill text-white"
+            style="margin-top: 10px ;left: 40%; right:40%"
+    >
+        Pan to Current Location</button>
+</div>
+<!-- Map End-->
+
 <!-- Foods Start-->
 <div class="container-fluid vesitable py-5">
     <div class="container">
@@ -75,9 +85,26 @@
 <script>
     window.addEventListener("DOMContentLoaded", async function () {
         const restaurantElements = document.querySelectorAll(".col-6[id]");
+        const queriedData = {
+            keyword: document.querySelector('li[data-queried-keyword]')?.dataset?.queriedKeyword,
+            district: document.querySelector('li[data-queried-district]')?.dataset?.queriedDistrict,
+            radius: document.querySelector('li[data-queried-radius]')?.dataset?.queriedRadius
+        };
+
         restaurantElements.forEach(element => {
             generateMapDirectionEmbed(element.id, element.dataset.latitude, element.dataset.longitude);
         });
+
+        if(queriedData) {
+            try {
+                cords = await getCurrentLocation();
+                generateMapEmbed(cords, queriedData.keyword, queriedData.district, queriedData.radius);
+            } catch (error) {
+                console.error('Error getting current location:', error);
+                // Handle location errors gracefully (e.g., display an error message)
+            }
+        }
+
     });
 </script>
 <!-- prettier-ignore -->

@@ -109,6 +109,14 @@
                                             ></textarea>
                                         </div>
                                         <div class="mb-3">
+                                            <label class="form-label" for="formContactNum">Contact</label>
+                                            <input class="form-control" type="text" id="formContactNum" th:field="*{phone}" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formParkingInfo">Acceptable vehicles</label>
+                                            <input class="form-control" type="text" id="formParkingInfo" th:field="*{parkingInfo}" />
+                                        </div>
+                                        <div class="mb-3">
                                             <label class="form-label" for="formOpenTime">Open Time*</label>
                                             <input
                                                     class="form-control"
