@@ -56,8 +56,7 @@ public class Restaurant {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "restaurant",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH},
+            cascade = {CascadeType.ALL},
             fetch = FetchType.LAZY)
     private List<Food> listFood = new ArrayList<>();
 
