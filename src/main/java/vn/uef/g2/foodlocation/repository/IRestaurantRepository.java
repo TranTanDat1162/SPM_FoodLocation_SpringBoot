@@ -33,5 +33,5 @@ public interface IRestaurantRepository extends JpaRepository<Restaurant, Long> {
     // find all restaurants by food name
 //    @Query("SELECT r FROM Restaurant r LEFT JOIN Food f ON r.id = f.restaurant.id WHERE (f.foodName LIKE %:foodName% OR r.restaurantName LIKE %:foodName%)")
     @Query("SELECT r FROM Restaurant r LEFT JOIN r.listFood f WHERE f.foodName LIKE %:foodName% OR r.restaurantName LIKE %:foodName%")
-    public Set<Restaurant> FindAllWithFoodNameQuery(@Param("foodName") String foodName);
+    Set<Restaurant> FindAllWithFoodNameQuery(@Param("foodName") String foodName);
 }
