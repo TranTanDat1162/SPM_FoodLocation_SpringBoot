@@ -52,6 +52,7 @@
                             </div>
 
                             <!-- Nếu người dùng đã đăng nhập -->
+                            <div th:if="${#authorization.expression('isAuthenticated()')}">
                                 <button style="margin-top: 2%; width: 100%" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRatingModal">
                                     Thêm đánh giá
                                 </button>
